@@ -5,8 +5,6 @@ import viteLogo from "/vite.svg";
 import HomePage from "./pages/homepage/HomePage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       {/* <div className="bg-black">
