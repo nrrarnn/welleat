@@ -1,35 +1,35 @@
 import AboutUs from "./AboutUs";
 import CardHome from "./CardHome";
 import FAQSection from "./FaqSection";
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import HeroSection from "./HeroSection";
 import LetsSignUp from "./LetsSignUp";
 import Testimonials from "./Testimonials";
 import WhyWellEat from "./WhyWellEat";
 
 const HomePage = () => {
-  return(
+  return (
     <>
-      <Header/>
+      <Header />
       <section id="home">
         <HeroSection />
-        <CardHome/>
+        <CardHome />
       </section>
       <section id="about">
-      <AboutUs/>
-      <WhyWellEat/>
+        <AboutUs />
+        <WhyWellEat />
       </section>
       <section id="testimoni">
-        <Testimonials/>
+        <Testimonials />
       </section>
       <section id="faq">
-        <FAQSection/>
+        <FAQSection />
       </section>
-      <LetsSignUp/>
-      <Footer/>
+      <LetsSignUp />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
 export default HomePage;

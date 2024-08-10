@@ -1,6 +1,6 @@
 import { FaHeart } from "react-icons/fa";
 
-export function RecipeCard() {
+export default function RecipeCard() {
   const imgUrl =
     "https://peasandcrayons.com/wp-content/uploads/2016/08/Blueberry-Broccoli-Spinach-Salad-Poppyseed-Ranch-dressing-recipe-7143.jpg";
   return (
