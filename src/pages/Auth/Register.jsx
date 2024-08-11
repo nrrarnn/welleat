@@ -30,13 +30,17 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post("https://66b84cbf3ce57325ac76d207.mockapi.io/users/users", {
-        nama_lengkap: registerState.nama_lengkap,
-        username: registerState.username,
-        password: registerState.password,
-        email: registerState.email,
-        nomor_hp: registerState.nomor_hp,
-      });
+      const response = await axios.post(
+        "https://66b837cf3ce57325ac76a6e4.mockapi.io/:endpoint",
+        {
+          nama_lengkap: registerState.nama_lengkap,
+          username: registerState.username,
+          password: registerState.password,
+          jenis_kelamin: registerState.jenis_kelamin,
+          email: registerState.email,
+          nomor_hp: registerState.nomor_hp,
+        }
+      );
       if (response) {
         Swal.fire({
           title: "Confirmation",

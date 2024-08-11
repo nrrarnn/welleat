@@ -18,28 +18,63 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("https://66b84cbf3ce57325ac76d207.mockapi.io/users/users", {
-        email: loginState.email,
-        password: loginState.password,
-      });
-
-      if (response.data && response.data) {
-        const token = response.data;
-        Cookies.set("authToken", token);
-        Swal.fire({
-          title: "Confirmation",
-          text: `Hello Selamat Datang`,
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/user");
+    if (!isEmailValid(loginState.email)) {
+      infoAlertFC("Warning", "Format email tidak valid", "error");
+      return;
+    }
+    if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
+      navigate("/list-users");
+      Cookies.set("username", "admin");
+    } else {
+      try {
+        const response = await axios.post(
+          "https://66b8445e3ce57325ac76c10a.mockapi.io/users",
+          {
+            email: loginState.email,
+            password: loginState.password,
           }
-        });
-      } else {
-        handleLoginError("Token tidak ditemukan");
+        );
+        if (response.data && response.data.data.token) {
+          const token = response.data.data.token;
+          Cookies.set("authToken", token);
+          Swal.fire({
+            title: "Confirmation",
+            text: `Hello Selamat Datang`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              const cekData = async () => {
+                try {
+                  const response = await axios.get(
+                    "https://66b8445e3ce57325ac76c10a.mockapi.io/users"
+                  );
+                  const userData = response.data.data;
+                  const findOut = userData.find(
+                    (user) => user.email === loginState.email
+                  );
+                  if (findOut) {
+                    const user = findOut.username;
+                    const image = findOut.image_profil;
+                    Cookies.set("gambar", image);
+                    Cookies.set("username", user);
+                    navigate("/");
+                  } else {
+                    handleLoginError(!response);
+                  }
+                } catch (error) {
+                  handleLoginError(error);
+                }
+              };
+              cekData();
+            }
+          });
+        } else {
+          handleLoginError(!response);
+        }
+      } catch (error) {
+        handleLoginError(error);
       }
     } catch (error) {
       handleLoginError(error);
@@ -101,7 +136,7 @@ const Login = () => {
             className="text-lg lg:text-3xl font-bold text-[#0396C7]"
             id="logo"
           >
-            Well IT
+            StoreID
           </span>
           <span
             onClick={toRegister}
