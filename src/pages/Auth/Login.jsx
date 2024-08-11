@@ -18,10 +18,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!isEmailValid(loginState.email)) {
-      infoAlertFC("Warning", "Format email tidak valid", "error");
-      return;
-    }
+    // if (!isEmailValid(loginState.email)) {
+    //   infoAlertFC("Warning", "Format email tidak valid", "error");
+    //   return;
+    // }
     if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
       navigate("/list-users");
       Cookies.set("username", "admin");
@@ -76,8 +76,6 @@ const Login = () => {
       } catch (error) {
         handleLoginError(error);
       }
-    } catch (error) {
-      handleLoginError(error);
     }
   };
 
@@ -91,7 +89,10 @@ const Login = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(255 10 10)",
       });
-    } else if (error.response && error.response.data.message === "record not found, invalid email") {
+    } else if (
+      error.response &&
+      error.response.data.message === "record not found, invalid email"
+    ) {
       Swal.fire({
         title: "Warning",
         text: "Anda Belum Punya akun, Anda harus registrasi dulu",

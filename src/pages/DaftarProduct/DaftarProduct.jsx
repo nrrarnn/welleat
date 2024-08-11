@@ -3,11 +3,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import { Card } from "@nextui-org/react";
+import Footer from "../../components/Footer";
 
 const DaftarProduct = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [category, setCategory] = useState("Semua");
+  const [hidden, setHidden] = useState(false);
 
   const authToken = Cookies.get("authToken");
   const [recipeData, setRecipeData] = useState({
@@ -120,7 +123,7 @@ const DaftarProduct = () => {
               : filteredData;
             setRecipeData((prev) => ({ ...prev, data: searchData }));
           } catch (error) {
-            infoAlertFC("Error", "Tidak ada Resep", "error");
+            console.error("Error", "Tidak ada Resep", error.message);
           }
         };
         product();
@@ -159,7 +162,9 @@ const DaftarProduct = () => {
         if (userIdStore.data.data[0].UserID === userId.data.data.UserID) {
           setHidden(true);
         }
-      } catch (error) {}
+      } catch (error) {
+        error.message("Terjadi Errors");
+      }
     }
   };
 
