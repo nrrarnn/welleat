@@ -1,85 +1,292 @@
-import "./UserCard.css"; // Styling khusus untuk UserCard dan Navbar
+import { Avatar } from "@nextui-org/react";
 
 const UserCard = () => {
   return (
-    <div className="user-card-page">
-      <nav className="navbar">
-        <div className="navbar-brand">
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Logo"
-            className="logo"
-          />
-        </div>
-        <div className="navbar-icons flex items-center space-x-4">
-          {/* Icon Lonceng menggunakan Tailwind CSS */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-700"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V9a6 6 0 10-12 0v5c0 .538-.214 1.055-.595 1.405L4 17h5m4 0a3 3 0 01-6 0"
-            />
-          </svg>
+    <div>
+      <nav className="bg-white-800">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-between">
+            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              {/* Mobile menu button */}
+              <button
+                type="button"
+                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span className="absolute -inset-0.5"></span>
+                <span className="sr-only">Open main menu</span>
+                {/* Icon when menu is closed */}
+                <svg
+                  className="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+                {/* Icon when menu is open */}
+                <svg
+                  className="hidden h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-shrink-0 items-center">
+                <img
+                  className="h-8 w-auto"
+                  src="./img/logo.png"
+                  alt="Your Company"
+                />
+              </div>
+              <div className="hidden sm:ml-6 sm:block">
+                <div className="flex space-x-4">
+                  <a
+                    href="/"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    aria-current="page"
+                  >
+                    Beranda
+                  </a>
+                  <a
+                    href="#"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Team
+                  </a>
+                  <a
+                    href="#"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Projects
+                  </a>
+                  <a
+                    href="#"
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Calendar
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <button
+                type="button"
+                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              >
+                <span className="absolute -inset-1.5"></span>
+                <span className="sr-only">View notifications</span>
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                  />
+                </svg>
+              </button>
 
-          {/* Icon Avatar menggunakan Tailwind CSS */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8 text-gray-700"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5.121 17.804A3.993 3.993 0 018 16h8a3.993 3.993 0 012.879 1.804M15 12a3 3 0 10-6 0m6 0a3 3 0 11-6 0m7 8H6a2 2 0 00-2 2v2h16v-2a2 2 0 00-2-2z"
-            />
-          </svg>
+              {/* Profile dropdown */}
+              <div className="relative ml-3">
+                <div>
+                  <button
+                    type="button"
+                    className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    id="user-menu-button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    <span className="absolute -inset-1.5"></span>
+                    <span className="sr-only">Open user menu</span>
+                    <Avatar
+                      showFallback
+                      src="https://images.unsplash.com/broken"
+                    />
+                  </button>
+                </div>
+                {/* <div
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="user-menu-button"
+                tabIndex="-1"
+              >
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="user-menu-item-0"
+                >
+                  Your Profile
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="user-menu-item-1"
+                >
+                  Settings
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex="-1"
+                  id="user-menu-item-2"
+                >
+                  Sign out
+                </a>
+              </div> */}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile menu, show/hide based on menu state */}
+        <div className="sm:hidden" id="mobile-menu">
+          <div className="space-y-1 px-2 pb-3 pt-2">
+            <a
+              href="#"
+              className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+              aria-current="page"
+            >
+              Dashboard
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Team
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Projects
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Calendar
+            </a>
+          </div>
         </div>
       </nav>
 
-      <div className="user-card-text mt-4 ">
-        <h2>Daftar Users</h2>
-        <p>Lihat informasi mengenai users</p>
+      <section>
+        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 w-full">
+          <div className="mx-auto max-w-3xl">
+            <header className="text-center">
+              <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
+                Daftar Users
+              </h1>
+              <p>Lihat Informasi Mengenai Users</p>
+            </header>
 
-        <div className="user-card-container">
-          <div className="user-cards">
-            <UserCardComponent
-              avatar="https://via.placeholder.com/150"
-              name="USERS"
-              ktp="3279025608760840"
-              phone="082123567890"
-              email="indrayangsatu@gmail.com"
-            />
-            {/* Tambahkan UserCardComponent lainnya sesuai kebutuhan */}
+            <div className="mt-8">
+              <ul className="space-y-4">
+                <li className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-lg">
+                  <Avatar
+                    showFallback
+                    src="https://images.unsplash.com/broken"
+                  />
+
+                  <div className="bg-gray-50 rounded-lg">
+                    <h3 className="text-sm text-gray-900">Users</h3>
+
+                    <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
+                      <div>
+                        <dt className="inline">ID:</dt>
+                        <dd className="inline">12345</dd>
+                      </div>
+
+                      <div>
+                        <dt className="inline">No HP:</dt>
+                        <dd className="inline">081234567890</dd>
+                      </div>
+
+                      <div>
+                        <dt className="inline">Email:</dt>
+                        <dd className="inline">johndoe@example.com</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div className="flex flex-1 items-center justify-end gap-2">
+                    <button className="text-gray-600 transition hover:text-blue-600">
+                      <span className="sr-only">Edit item</span>
+
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="h-4 w-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.862 4.487a2.626 2.626 0 113.714 3.713L7.5 21.276l-4.121.458a1 1 0 01-1.1-1.1l.457-4.121L16.862 4.487z"
+                        />
+                      </svg>
+                    </button>
+
+                    <button className="text-gray-600 transition hover:text-red-600">
+                      <span className="sr-only">Remove item</span>
+
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="h-4 w-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
 // Komponen untuk menampilkan setiap card user
-const UserCardComponent = ({ avatar, name, ktp, phone, email }) => {
-  return (
-    <div className="user-card">
-      <img src={avatar} alt="User Avatar" className="user-avatar" />
-      <div className="user-info">
-        <h3>{name}</h3>
-        <p>No. Id: {ktp}</p>
-        <p>No. Handphone: {phone}</p>
-        <p>Email: {email}</p>
-      </div>
-    </div>
-  );
-};
 
 export default UserCard;
