@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import bgCoverUser from "../img/Rectangle 2775.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ const Register = () => {
     username: "",
     password: "",
     showPassword: false,
-    jenis_kelamin: "",
     email: "",
     nomor_hp: "",
   });
@@ -197,61 +196,6 @@ const Register = () => {
                         >
                           Tampilkan Password
                         </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between w-full items-center">
-                    <div className="flex flex-col mt-2">
-                      <span id="jenis-kelamin-label">
-                        Jenis Kelamin <span className="text-red-500">*</span>
-                      </span>
-                      <div className="flex gap-5">
-                        <div className="div">
-                          <input
-                            checked={
-                              registerState.jenis_kelamin === "laki-laki"
-                            }
-                            onChange={() =>
-                              setRegisterState((prev) => ({
-                                ...prev,
-                                jenis_kelamin: "laki-laki",
-                              }))
-                            }
-                            required
-                            type="radio"
-                            name="jenis-kelamin"
-                            id="laki-laki"
-                          />
-                          <label
-                            htmlFor="laki-laki"
-                            className="text-xs md:text-sm ml-1"
-                          >
-                            Laki laki
-                          </label>
-                        </div>
-                        <div className="div">
-                          <input
-                            checked={
-                              registerState.jenis_kelamin === "perempuan"
-                            }
-                            onChange={() =>
-                              setRegisterState((prev) => ({
-                                ...prev,
-                                jenis_kelamin: "perempuan",
-                              }))
-                            }
-                            required
-                            type="radio"
-                            name="jenis-kelamin"
-                            id="perempuan"
-                          />
-                          <label
-                            htmlFor="perempuan"
-                            className="text-xs md:text-sm ml-1"
-                          >
-                            Perempuan
-                          </label>
-                        </div>
                       </div>
                     </div>
                   </div>

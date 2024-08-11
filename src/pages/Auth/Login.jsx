@@ -76,6 +76,8 @@ const Login = () => {
       } catch (error) {
         handleLoginError(error);
       }
+    } catch (error) {
+      handleLoginError(error);
     }
   };
 
@@ -89,9 +91,7 @@ const Login = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(255 10 10)",
       });
-    } else if (
-      error.response.data.message === "record not found, invalid email"
-    ) {
+    } else if (error.response && error.response.data.message === "record not found, invalid email") {
       Swal.fire({
         title: "Warning",
         text: "Anda Belum Punya akun, Anda harus registrasi dulu",

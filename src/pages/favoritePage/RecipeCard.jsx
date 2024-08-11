@@ -1,11 +1,12 @@
+import { PropTypes } from "prop-types";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
-export default function RecipeCard() {
+export default function RecipeCard({ recipeName, image }) {
   const [isRead, setIsRead] = useState(false);
 
-  const imgUrl =
-    "https://peasandcrayons.com/wp-content/uploads/2016/08/Blueberry-Broccoli-Spinach-Salad-Poppyseed-Ranch-dressing-recipe-7143.jpg";
+  // const imgUrl =
+  //   "https://peasandcrayons.com/wp-content/uploads/2016/08/Blueberry-Broccoli-Spinach-Salad-Poppyseed-Ranch-dressing-recipe-7143.jpg";
 
   const redHeartClick = () => {
     setIsRead(!isRead);
@@ -16,12 +17,12 @@ export default function RecipeCard() {
         <div className="p-3">
           <img
             className=" w-full h-[220px]  object-cover rounded-lg"
-            src={imgUrl}
+            src={image}
             alt="Card Image"
           />
         </div>
         <div className="p-2">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Salad Sayur</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">{recipeName}</h2>
           <div>
             <div className="flex justify-between">
               <a
@@ -48,3 +49,8 @@ export default function RecipeCard() {
     </div>
   );
 }
+
+RecipeCard.propTypes = {
+  recipeName: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+};
