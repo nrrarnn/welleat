@@ -19,33 +19,40 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://66b84cbf3ce57325ac76d207.mockapi.io/users/users", {
-        email: loginState.email,
-        password: loginState.password,
-      });
+        const response = await axios.get("https://66b84cbf3ce57325ac76d207.mockapi.io/users/users");
 
-      if (response.data && response.data) {
-        const token = response.data;
-        Cookies.set("authToken", token);
-        Swal.fire({
-          title: "Confirmation",
-          text: `Hello Selamat Datang`,
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/user");
-          }
-        });
-      } else {
-        handleLoginError("Token tidak ditemukan");
-      }
+        const user = response.data.find(u => u.email === loginState.email && u.password === loginState.password);
+
+        if (user) {
+            const token = user.id; 
+            const getToken = generateToken(token); 
+
+            console.log("User:", user);
+            console.log("Generated Token:", getToken);
+
+           
+            Cookies.set("authToken", getToken);
+
+            
+            Swal.fire({
+                title: "Confirmation",
+                text: `Hello Selamat Datang`,
+                icon: "success",
+                confirmButtonText: "OK",
+                confirmButtonColor: "rgb(3 150 199)",
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    navigate("/user"); 
+                }
+            });
+        } else {
+            handleLoginError("Email atau password salah");
+        }
     } catch (error) {
-      handleLoginError(error);
+        console.error("Terjadi kesalahan saat login:", error);
+        handleLoginError("Login gagal. Silakan coba lagi.");
     }
-  };
-
+};
   const handleLoginError = (error) => {
     if (error.message === "Network Error") {
       Swal.fire({
@@ -86,6 +93,10 @@ const Login = () => {
       });
     }
   };
+
+  const generateToken = (user) => {
+    return `${user}${new Date().getTime()}`
+  }
 
   return (
     <>
