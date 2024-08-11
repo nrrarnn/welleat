@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -56,9 +56,11 @@ const DetailRecipe = () => {
       <Header />
       <div className="pt-24 sm:pt-20 px-4 py-12 sm:p-8 lg:p-28 font-poppins">
         <div className="hidden sm:flex justify-between items-center mb-8 bg-blue-100 rounded-full">
-          <Button radius="full" className="bg-sky-500 w-12 h-12">
-            <BiArrowBack className="text-white w-6 h-6" />
-          </Button>
+          <Link to="/favorite">
+            <Button radius="full" className="bg-sky-500 w-12 h-12 rounded-full">
+              <BiArrowBack className="text-white w-6 h-6 text-center" />
+            </Button>
+          </Link>
           <div className="">
             <h2 className="mr-6">Kembali</h2>
           </div>
