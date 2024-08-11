@@ -18,69 +18,44 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!isEmailValid(loginState.email)) {
-      infoAlertFC("Warning", "Format email tidak valid", "error");
-      return;
-    }
-    if (loginState.email === "admin@gmail.com" && loginState.password === "1") {
-      navigate("/list-users");
-      Cookies.set("username", "admin");
-    } else {
-      try {
-        const response = await axios.post(
-          "https://66b8445e3ce57325ac76c10a.mockapi.io/users",
-          {
-            email: loginState.email,
-            password: loginState.password,
+    try {
+      const response = await axios.get(
+        "https://66b84cbf3ce57325ac76d207.mockapi.io/users/users"
+      );
+
+      const user = response.data.find(
+        (u) =>
+          u.email === loginState.email && u.password === loginState.password
+      );
+
+      if (user) {
+        const token = user.id;
+        const getToken = generateToken(token);
+
+        console.log("User:", user);
+        console.log("Generated Token:", getToken);
+
+        Cookies.set("authToken", getToken);
+
+        Swal.fire({
+          title: "Confirmation",
+          text: `Hello Selamat Datang`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            navigate("/user");
           }
-        );
-        if (response.data && response.data.data.token) {
-          const token = response.data.data.token;
-          Cookies.set("authToken", token);
-          Swal.fire({
-            title: "Confirmation",
-            text: `Hello Selamat Datang`,
-            icon: "success",
-            confirmButtonText: "OK",
-            confirmButtonColor: "rgb(3 150 199)",
-          }).then((res) => {
-            if (res.isConfirmed) {
-              const cekData = async () => {
-                try {
-                  const response = await axios.get(
-                    "https://66b8445e3ce57325ac76c10a.mockapi.io/users"
-                  );
-                  const userData = response.data.data;
-                  const findOut = userData.find(
-                    (user) => user.email === loginState.email
-                  );
-                  if (findOut) {
-                    const user = findOut.username;
-                    const image = findOut.image_profil;
-                    Cookies.set("gambar", image);
-                    Cookies.set("username", user);
-                    navigate("/");
-                  } else {
-                    handleLoginError(!response);
-                  }
-                } catch (error) {
-                  handleLoginError(error);
-                }
-              };
-              cekData();
-            }
-          });
-        } else {
-          handleLoginError(!response);
-        }
-      } catch (error) {
-        handleLoginError(error);
+        });
+      } else {
+        handleLoginError("Email atau password salah");
       }
     } catch (error) {
-      handleLoginError(error);
+      console.error("Terjadi kesalahan saat login:", error);
+      handleLoginError("Login gagal. Silakan coba lagi.");
     }
   };
-
   const handleLoginError = (error) => {
     if (error.message === "Network Error") {
       Swal.fire({
@@ -91,7 +66,10 @@ const Login = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "rgb(255 10 10)",
       });
-    } else if (error.response && error.response.data.message === "record not found, invalid email") {
+    } else if (
+      error.response &&
+      error.response.data.message === "record not found, invalid email"
+    ) {
       Swal.fire({
         title: "Warning",
         text: "Anda Belum Punya akun, Anda harus registrasi dulu",
@@ -120,6 +98,10 @@ const Login = () => {
         });
       });
     }
+  };
+
+  const generateToken = (user) => {
+    return `${user}${new Date().getTime()}`;
   };
 
   return (
