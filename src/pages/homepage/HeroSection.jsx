@@ -13,7 +13,7 @@ const HeroSection = () => {
       <div className="absolute top-0 bottom-0 left-2 right-2 sm:left-6 sm:right-6 bg-black opacity-50 rounded-lg"></div>
         <div className="absolute top-0 bottom-0 left-2 right-2 sm:left-6 sm:right-6 flex items-center justify-center text-white flex-col">
           <h2 className=" text-3xl font-bold text-center px-3">Selamat Datang di WellEat</h2>
-          <p className="px-8 text-center">Temukan resep sehat dan lezat untuk menunjang kesehatan anda! Nikmati setiap hidangan yang tidak hanya memanjakan lidah, tetapi juga memberikan nutrisi yang dibutuhkan tubuh, sehingga anda dapat menjalani hari hari dengan penuh energi dan kesehatan optimal</p>
+          <p className="px-8 text-center text-white">Temukan resep sehat dan lezat untuk menunjang kesehatan anda! Nikmati setiap hidangan yang tidak hanya memanjakan lidah, tetapi juga memberikan nutrisi yang dibutuhkan tubuh, sehingga anda dapat menjalani hari hari dengan penuh energi dan kesehatan optimal</p>
         </div>
       </div>
       </div>
