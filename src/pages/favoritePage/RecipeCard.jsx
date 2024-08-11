@@ -1,8 +1,9 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function RecipeCard({ recipeName, image }) {
+export default function RecipeCard({ recipeName, image, id }) {
   const [isRead, setIsRead] = useState(false);
 
   // const imgUrl =
@@ -25,12 +26,12 @@ export default function RecipeCard({ recipeName, image }) {
           <h2 className="text-xl font-bold text-gray-900 mb-4">{recipeName}</h2>
           <div>
             <div className="flex justify-between">
-              <a
-                href="#"
+              <Link
+               to={`/detail-recipe/${id}`}
                 className="bg-blue-500 text-white px-5 mr-4 py-2 rounded hover:bg-blue-600 active:to-blue-300"
               >
                 Lihat Resep
-              </a>
+              </Link>
               <button
                 onClick={redHeartClick}
                 className="bg-white px-8 ml-4 rounded border border-blue-500 hover:text-red-600 hover:bg-blue-500"
