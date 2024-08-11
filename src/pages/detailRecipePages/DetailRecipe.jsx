@@ -11,6 +11,7 @@ const DetailRecipe = () => {
 	const [recipe, setRecipe] = useState(null);
 	const [newComment, setNewComment] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [showComments, setShowComments] = useState(5);
 
 	useEffect(() => {
 		const getRecipeDetails = async () => {
@@ -59,6 +60,10 @@ const DetailRecipe = () => {
 		}
 	};
 
+	const handleShowMoreComments = () => {
+		setShowComments((prevShowComments) => prevShowComments + 3);
+	};
+
 	if (!recipe) {
 		return (
 			<div className="flex items-center justify-center h-screen">
@@ -70,7 +75,7 @@ const DetailRecipe = () => {
 	return (
 		<>
 			<Header />
-			<div className="pt-24 sm:pt-20 px-4 py-12 sm:p-8 lg:p-28 font-poppins">
+			<div className="sm:p-8 lg:px-32 font-poppins">
 				<div className="hidden sm:flex justify-between items-center mb-8 bg-blue-100 rounded-full">
 					<Button radius="full" className="bg-sky-500 w-12 h-12">
 						<BiArrowBack className="text-white w-6 h-6" />
@@ -111,7 +116,10 @@ const DetailRecipe = () => {
 					</h2>
 
 					{/* Comment Form */}
-					<form className="mb-4 flex items-center space-x-4" onSubmit={handleCommentSubmit}>
+					<form
+						className="mb-4 flex items-center space-x-4"
+						onSubmit={handleCommentSubmit}
+					>
 						<img
 							src="https://via.placeholder.com/50"
 							alt="User Avatar"
@@ -128,7 +136,7 @@ const DetailRecipe = () => {
 						</div>
 						<Button
 							radius="full"
-							className="h-10 sm:h-12"
+							className="h-10 sm:h-12 bg-sky-400 text-white"
 							type="submit"
 							disabled={loading}
 						>
@@ -138,7 +146,7 @@ const DetailRecipe = () => {
 
 					{/* Displaying Comments */}
 					<div className="space-y-4 mt-8">
-						{recipe.comment.map((comment) => (
+						{recipe.comment.slice(0, showComments).map((comment) => (
 							<div key={comment.id} className="flex items-start space-x-4">
 								<img
 									src="https://via.placeholder.com/50"
@@ -156,6 +164,15 @@ const DetailRecipe = () => {
 							</div>
 						))}
 					</div>
+
+					{/* Show More Button */}
+					{showComments < recipe.comment.length && (
+						<div className="text-center mt-4">
+							<Button radius="full" onClick={handleShowMoreComments}>
+								Show More
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
 			<Footer />
