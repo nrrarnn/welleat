@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Header  = () => {
   return(
     <>
@@ -15,7 +17,7 @@ const Header  = () => {
             </ul> 
         </div>
         <div className="">
-            <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">Masuk</button>
+            <Link to={'/login'}><button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">Masuk</button></Link>
         </div>
       </header>
     </>
