@@ -6,6 +6,7 @@ import UserCard from "./pages/userPage/UserCard";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import DaftarProduct from "./pages/DaftarProduct/DaftarProduct";
+import DashboardPage from "./pages/dashboardAdmin/DashboardPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route element={<UserCard />} path="/user" />
         <Route element={<Register />} path="/register" />
         <Route element={<DaftarProduct />} path="/daftar-product" />
+        <Route element={<DashboardPage/>} path="/dashboard-admin" />
       </Routes>
     </>
   );
