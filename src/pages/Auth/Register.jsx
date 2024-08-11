@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import bgCoverUser from "../img/Rectangle 2775.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
