@@ -27,10 +27,13 @@ const Login = () => {
       Cookies.set("username", "admin");
     } else {
       try {
-        const response = await axios.post("", {
-          email: loginState.email,
-          password: loginState.password,
-        });
+        const response = await axios.post(
+          "https://66b8445e3ce57325ac76c10a.mockapi.io/users",
+          {
+            email: loginState.email,
+            password: loginState.password,
+          }
+        );
         if (response.data && response.data.data.token) {
           const token = response.data.data.token;
           Cookies.set("authToken", token);
@@ -44,7 +47,9 @@ const Login = () => {
             if (res.isConfirmed) {
               const cekData = async () => {
                 try {
-                  const response = await axios.get("");
+                  const response = await axios.get(
+                    "https://66b8445e3ce57325ac76c10a.mockapi.io/users"
+                  );
                   const userData = response.data.data;
                   const findOut = userData.find(
                     (user) => user.email === loginState.email
@@ -131,7 +136,7 @@ const Login = () => {
             className="text-lg lg:text-3xl font-bold text-[#0396C7]"
             id="logo"
           >
-            Well IT
+            StoreID
           </span>
           <span
             onClick={toRegister}

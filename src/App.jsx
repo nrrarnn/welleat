@@ -5,6 +5,7 @@ import FavoritePage from "./pages/favoritePage/FavoritePage";
 import UserCard from "./pages/userPage/UserCard";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import DaftarProduct from "./pages/DaftarProduct/DaftarProduct";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route element={<FavoritePage />} path="/favorite" />
         <Route element={<UserCard />} path="/user" />
         <Route element={<Register />} path="/register" />
+        <Route element={<DaftarProduct />} path="/daftar-product" />
       </Routes>
     </>
   );
