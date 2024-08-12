@@ -1,16 +1,25 @@
 import { baseApi } from "./baseAxios";
 
 export async function getRecipes() {
-  const res = await baseApi.get("/recipe", {
+  const response = await baseApi.get("/recipes", {
     request: { signal: new AbortController().signal },
   });
 
-  return res.data;
+  return response.data;
 }
 
-export async function getRecipe(recipeId, option) {
-  const res = await baseApi.get(`/recipe/${recipeId}`, option);
-  return res.data;
+export async function getRecipe(recipeId) {
+  const response = await baseApi.get(`/recipes/${recipeId}`, {
+    request: { signal: new AbortController().signal },
+  });
+  return response.data;
+}
+
+export async function getFavorite() {
+  const response = await baseApi.get(`/favorite`, {
+    request: { signal: new AbortController().signal },
+  });
+  return response.data;
 }
 
 // export function loaderRecipes({ request: { signal } }) {
