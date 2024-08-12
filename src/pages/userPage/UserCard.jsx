@@ -1,6 +1,9 @@
 import { Avatar } from "@nextui-org/react";
+import withAuth from "../../hoc/withAuth";
 
-const UserCard = () => {
+const UserCard = ({token, dataUser}) => {
+  console.log(token)
+  console.log(dataUser.id)
   return (
     <div>
       <nav className="bg-white-800">
@@ -289,4 +292,4 @@ const UserCard = () => {
 
 // Komponen untuk menampilkan setiap card user
 
-export default UserCard;
+export default withAuth(UserCard);

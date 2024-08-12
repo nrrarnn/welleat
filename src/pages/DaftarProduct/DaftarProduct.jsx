@@ -3,11 +3,14 @@ import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import RecipeCard from "../favoritePage/RecipeCard";
+import { useNavigate } from "react-router-dom";
+import withAuth from "../../hoc/withAuth";
 
 
-const DaftarProduct = () => {
+const DaftarProduct = ({token}) => {
  
-  const [listRecipes, setListRecipes] = useState([])
+  const [listRecipes, setListRecipes] = useState([]);
+  const navigate = useNavigate()
 
   const getRecipes = async () => {
     try {
@@ -20,9 +23,15 @@ const DaftarProduct = () => {
     }
   }
 
-  useEffect(() => {
-    getRecipes()
-  },[])
+ useEffect(() => {
+    if (!token) {
+      // If no token is present, redirect to the login page
+      navigate("/login");
+    } else {
+      // Fetch the recipes if the token is present
+      getRecipes();
+    }
+  }, [token]);
 
   return (
     <>
@@ -40,4 +49,4 @@ const DaftarProduct = () => {
   );
 };
 
-export default DaftarProduct;
+export default withAuth(DaftarProduct);
