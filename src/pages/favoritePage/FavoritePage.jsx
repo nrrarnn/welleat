@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-<<<<<<< Updated upstream
-import RecipeCard from "./RecipeCard";
-import { getRecipes } from "../data/recipe";
-=======
 import RecipeCard from "../../components/RecipeCard";
 import { getFavorite, getRecipes } from "../../data/recipe";
 import { Spinner } from "@nextui-org/react";
 import { fetchData } from "../../data/baseAxios";
->>>>>>> Stashed changes
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);

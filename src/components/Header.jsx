@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
 import withAuth from "../hoc/withAuth";
-<<<<<<< Updated upstream
-import { Avatar } from "@nextui-org/react";
-
-const Header = ({dataUser, token}) => {
-=======
 import {
   Avatar,
   Button,
@@ -50,7 +45,6 @@ const Header = ({ dataUser, token }) => {
     });
   };
 
->>>>>>> Stashed changes
   return (
     <>
       <header className="sticky font-poppins top-0 flex h-20 w-full bg-white shadow-md px-12 justify-between items-center z-50">
@@ -60,11 +54,7 @@ const Header = ({ dataUser, token }) => {
             <span className="text-slate-900">Well</span>Eat.
           </h1>
         </div>
-<<<<<<< Updated upstream
-        <div className="flex">
-=======
         <div className={`${token ? "hidden" : "flex"}`}>
->>>>>>> Stashed changes
           <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
             <li className="hover:text-sky-500">
               <a href="#home">Beranda</a>
@@ -80,23 +70,6 @@ const Header = ({ dataUser, token }) => {
             </li>
           </ul>
         </div>
-<<<<<<< Updated upstream
-         {token ? (
-                <div className="flex justify-center items-center gap-2">
-                    <Avatar />
-                    <h1>{dataUser ? dataUser.username : 'User'}</h1> {/* Menangani kasus di mana userData mungkin null */}
-                </div>
-            ) : (
-                <div className="">
-                    <Link to={"/login"}>
-                        <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">
-                            Masuk
-                        </button>
-                    </Link>
-                </div>
-            )}
-        
-=======
         {token ? (
           <div className="flex gap-3 items-center">
             <div>{dataUser.username}</div>
@@ -122,7 +95,6 @@ const Header = ({ dataUser, token }) => {
             </Link>
           </div>
         )}
->>>>>>> Stashed changes
       </header>
     </>
   );
