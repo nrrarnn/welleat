@@ -1,0 +1,235 @@
+{
+  "users": [
+    {
+      "createdAt": "2024-08-11T01:37:20.160Z",
+      "nama_lengkap": "arin kannazuki",
+      "username": "arnkny",
+      "password": "12345678",
+      "email": "nurarini0302@gmail.com",
+      "nomor_hp": "089765432",
+      "id": "1"
+    },
+    {
+      "createdAt": "2024-08-11T10:28:33.371Z",
+      "nama_lengkap": "arin kannazuki",
+      "username": "nrrarn",
+      "password": "12345678",
+      "email": "arinkannazuki@gmail.com",
+      "nomor_hp": "12345678",
+      "id": "2"
+    },
+    {
+      "createdAt": "2024-08-11T03:25:06.998Z",
+      "nama_lengkap": "Nur arini",
+      "username": "nrrarn",
+      "password": "12345678",
+      "email": "nurarini0302@gmail.com",
+      "nomor_hp": "030206",
+      "id": "3"
+    },
+    {
+      "createdAt": "2024-08-11T15:36:56.678Z",
+      "nama_lengkap": "arin kannazuki",
+      "username": "nrrarn",
+      "password": "12345678",
+      "email": "kanaoyuzuki@gmail.com",
+      "nomor_hp": "12345678",
+      "id": "4"
+    },
+    {
+      "createdAt": "2024-08-12T00:55:23.383Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "5"
+    },
+    {
+      "createdAt": "2024-08-11T07:03:08.031Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "5"
+    },
+    {
+      "createdAt": "2024-08-12T05:39:00.522Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "6"
+    },
+    {
+      "createdAt": "2024-08-11T09:39:31.750Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "6"
+    },
+    {
+      "createdAt": "2024-08-11T19:01:28.051Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "7"
+    },
+    {
+      "createdAt": "2024-08-12T02:28:00.987Z",
+      "nama_lengkap": "baba",
+      "username": "baba123",
+      "password": "123",
+      "email": "baba123@gmail.com",
+      "nomor_hp": "0878783131",
+      "id": "8"
+    },
+    {
+      "createdAt": "2024-08-11T18:59:51.465Z",
+      "nama_lengkap": "putera alamsyah",
+      "username": "putera123",
+      "password": "putera123",
+      "email": "putera123@gmail.com",
+      "nomor_hp": "087850233434",
+      "id": "9"
+    },
+    {
+      "createdAt": "2024-08-11T15:53:42.420Z",
+      "nama_lengkap": "Baba Putera A",
+      "username": "Baba011",
+      "password": "123",
+      "email": "Baba@gmail.com",
+      "nomor_hp": "08778787313",
+      "id": "10"
+    },
+    {
+      "createdAt": "2024-08-11T13:46:17.461Z",
+      "nama_lengkap": "Baba Putera A",
+      "username": "Baba011",
+      "password": "123",
+      "email": "Baba@gmail.com",
+      "nomor_hp": "08778787313",
+      "id": "11"
+    }
+  ],
+  "comments": [
+    {
+      "createdAt": "2024-08-12T05:51:45.565Z",
+      "userId": "1",
+      "content": "kero",
+      "id": "14",
+      "recipeId": "6"
+    },
+    {
+      "createdAt": "2024-08-12T07:03:58.903Z",
+      "userId": "2",
+      "content": "mantapp",
+      "id": "16",
+      "recipeId": "6"
+    }
+  ],
+  "favorite": [
+    { "id": "1", "userId": "1", "recipeId": "1" },
+    { "id": "2", "userId": "2", "recipeId": "2" }
+  ],
+  "recipes": [
+    {
+      "createdAt": "2024-08-12T06:29:05.455Z",
+      "recipeName": "Gorgeous Metal Towels",
+      "image": "https://loremflickr.com/640/480/food",
+      "ingredient": [
+        ":/'E\\#jwR[",
+        "T/GQwb`7.#",
+        "y8hRjN&S+_",
+        "I^QYol,p14",
+        35738,
+        63483,
+        "QR'k:]6F=j",
+        74205,
+        "I0s^|K]f(J",
+        "),^`qX:|yP"
+      ],
+      "step": [
+        89366,
+        98158,
+        40169,
+        "O8&0}kl^W*",
+        ";Yv'OlL3%%",
+        66573,
+        "jlF1Cl|lJf",
+        "mV{zimZmqc",
+        38770,
+        "&tB_,D2E_)"
+      ],
+
+      "id": "1"
+    },
+    {
+      "createdAt": "2024-08-12T05:13:35.042Z",
+      "recipeName": "Refined Plastic Keyboard",
+      "image": "https://loremflickr.com/640/480/food",
+      "ingredient": [
+        "5Z;A{h^k%g",
+        "/BFc1Tq`TB",
+        "99a>lUPd-E",
+        17450,
+        4048,
+        ":xEZs7K1p]",
+        "z<K$iaxtQd",
+        "Z?Cva`we9g",
+        "=#['$=D3y*",
+        "!=q9E7`dy>"
+      ],
+      "step": [
+        43617,
+        "|&%@LU*@;R",
+        65495,
+        "Lra,^n'E-(",
+        10868,
+        86333,
+        "(9YdZ]bzSl",
+        "V^W7\"7hG48",
+        "]#@Y+LIE-Y",
+        82249
+      ],
+
+      "id": "2"
+    },
+    {
+      "createdAt": "2024-08-11T21:19:09.650Z",
+      "recipeName": "Awesome Granite Shirt",
+      "image": "https://loremflickr.com/640/480/food",
+      "ingredient": [
+        "6)Vnt|iv5,",
+        "w{nM^tzg60",
+        97524,
+        9670,
+        3696,
+        "k$,T|10gzI",
+        "Q3zaF_7@;*",
+        14906,
+        19941,
+        "!\\)6R\"GYm1"
+      ],
+      "step": [
+        "U<v$%Mqbkk",
+        50231,
+        "\"px'|a\"4?L",
+        95442,
+        "Ir01Zu)-H`",
+        44412,
+        41085,
+        ",fOG\\hQl,U",
+        "dr1R)b?;FB",
+        26905
+      ],
+      "id": "3"
+    }
+  ]
+}

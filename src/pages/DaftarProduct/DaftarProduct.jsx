@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import RecipeCard from "../favoritePage/RecipeCard";
+import RecipeCard from "../../components/RecipeCard";
 import { useNavigate } from "react-router-dom";
 import withAuth from "../../hoc/withAuth";
+import SearchForm from "../../components/SearchForm";
+import { PropTypes } from "prop-types";
+import { NoDataDisplay } from "../../components/NoDataDisplay";
+import { Spinner } from "@nextui-org/react";
 
 const DaftarProduct = ({ token }) => {
   const [listRecipes, setListRecipes] = useState([]);
+  const [results, setResults] = useState([]);
+  const [view, setView] = useState("list");
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   const getRecipes = async () => {
@@ -16,9 +24,10 @@ const DaftarProduct = ({ token }) => {
         "https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist"
       );
       setListRecipes(response.data);
-      console.log(response.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -35,22 +44,76 @@ const DaftarProduct = ({ token }) => {
       getRecipes();
     }
   }, [token]);
+
+  const handleSearch = (query) => {
+    setLoading(true);
+
+    const filteredResults = listRecipes.filter((recipe) =>
+      recipe.bahan.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setResults(filteredResults);
+
+    setView("result");
+    setLoading(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner label="Loading ..." size="lg" />
+      </div>
+    );
+  }
+
   return (
     <>
       <Header />
-      <div className="flex flex-wrap gap-3 px-20">
-        {listRecipes.map((recipe, index) => (
-          <RecipeCard
-            key={index}
-            recipeName={recipe.name}
-            image={recipe.image}
-            id={recipe.id}
-          />
-        ))}
+      <SearchForm onSearch={handleSearch} />
+      <div className=" px-20">
+        <div>
+          <h2 className="text-center text-3xl p-4 font-poppins font-extrabold text-blue-400">
+            DAFTAR RESEP
+          </h2>
+        </div>
+        <div className="flex flex-wrap justify-center">
+          {view === "list" &&
+            (listRecipes.length > 0 ? (
+              listRecipes.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  recipeName={recipe.name}
+                  image={recipe.image}
+                  id={recipe.id}
+                />
+              ))
+            ) : (
+              <NoDataDisplay />
+            ))}
+
+          {view === "result" &&
+            (results.length > 0 ? (
+              results.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  recipeName={recipe.name}
+                  image={recipe.image}
+                  id={recipe.id}
+                />
+              ))
+            ) : (
+              <NoDataDisplay />
+            ))}
+        </div>
       </div>
+
       <Footer />
     </>
   );
 };
 
 export default withAuth(DaftarProduct);
+
+DaftarProduct.propTypes = {
+  token: PropTypes.any.isRequired,
+};
