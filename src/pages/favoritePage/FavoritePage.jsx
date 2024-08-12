@@ -2,20 +2,27 @@ import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import RecipeCard from "../../components/RecipeCard";
-import { getRecipes } from "../../data/recipe";
+import { getFavorite, getRecipes } from "../../data/recipe";
+import { Spinner } from "@nextui-org/react";
+import { fetchData } from "../../data/baseAxios";
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getRecipes();
-
-      setRecipes(data);
-    };
-
-    fetchData();
+    fetchData(setRecipes, setLoading, getRecipes);
+    fetchData(setFavorites, setLoading, getFavorite);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner label="Loading ..." size="lg" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -27,9 +34,13 @@ export default function FavoritePage() {
               Resep Favorit
             </h2>
             <div className="flex flex-wrap justify-center items-center">
-              {recipes.map((recipe) => (
-                <RecipeCard key={recipe.id} {...recipe} />
-              ))}
+              {recipes
+                .filter((recipe) =>
+                  favorites.some((favorite) => favorite.recipeId === recipe.id)
+                )
+                .map((recipe) => (
+                  <RecipeCard key={recipe.id} {...recipe} />
+                ))}
             </div>
           </div>
         </div>

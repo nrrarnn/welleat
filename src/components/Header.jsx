@@ -1,44 +1,49 @@
 import { Link, useNavigate } from "react-router-dom";
 import withAuth from "../hoc/withAuth";
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
 import Swal from "sweetalert2";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
-const Header = ({dataUser, token}) => {
-
-   const dispatch = useDispatch();
-  const navigate = useNavigate()
+const Header = ({ dataUser, token }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    Cookies.remove("authToken");
     dispatch({ type: "LOGOUT" });
     navigate("/");
-
   };
 
   const onLogout = () => {
     Swal.fire({
-    title: 'Apakah kamu yakin?',
-    text: 'Kamu ingin keluar?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes',
-    cancelButtonText: 'No',
-    customClass: {
-      container: 'swal-container',
-      popup: 'swal-popup',
-      title: 'swal-title',
-      content: 'swal-content',
-      confirmButton: 'swal-confirm',
-      cancelButton: 'swal-cancel'
-    }}).then((result) => {
+      title: "Apakah kamu yakin?",
+      text: "Kamu ingin keluar?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      customClass: {
+        container: "swal-container",
+        popup: "swal-popup",
+        title: "swal-title",
+        content: "swal-content",
+        confirmButton: "swal-confirm",
+        cancelButton: "swal-cancel",
+      },
+    }).then((result) => {
       if (result.isConfirmed) {
         handleLogout();
       }
     });
-  }
-
+  };
 
   return (
     <>
@@ -49,7 +54,7 @@ const Header = ({dataUser, token}) => {
             <span className="text-slate-900">Well</span>Eat.
           </h1>
         </div>
-        <div className={`${token ? 'hidden' : 'flex'}`}>
+        <div className={`${token ? "hidden" : "flex"}`}>
           <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
             <li className="hover:text-sky-500">
               <a href="#home">Beranda</a>
@@ -65,30 +70,31 @@ const Header = ({dataUser, token}) => {
             </li>
           </ul>
         </div>
-         {token ? (
-              <div className="flex gap-3 items-center">
-                <div>{dataUser.username}</div>
-                <Dropdown>
-                    <DropdownTrigger>
-                      <Avatar/>
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Static Actions">
-                      <DropdownItem key="delete">
-                        <Button color="danger" variant="flat" onClick={onLogout}>Logout</Button> 
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                  </div>
-            ) : (
-                <div className="">
-                    <Link to={"/login"}>
-                        <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">
-                            Masuk
-                        </button>
-                    </Link>
-                </div>
-            )}
-        
+        {token ? (
+          <div className="flex gap-3 items-center">
+            <div>{dataUser.username}</div>
+            <Dropdown>
+              <DropdownTrigger>
+                <Avatar />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                <DropdownItem key="delete">
+                  <Button color="danger" variant="flat" onClick={onLogout}>
+                    Logout
+                  </Button>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        ) : (
+          <div className="">
+            <Link to={"/login"}>
+              <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">
+                Masuk
+              </button>
+            </Link>
+          </div>
+        )}
       </header>
     </>
   );

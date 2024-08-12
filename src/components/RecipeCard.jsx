@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default function RecipeCard({ recipeName, image, id }) {
+export default function RecipeCard({ name, image, id }) {
   const [isRead, setIsRead] = useState(false);
 
   const redHeartClick = () => {
@@ -20,7 +20,7 @@ export default function RecipeCard({ recipeName, image, id }) {
           />
         </div>
         <div className="p-2">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">{recipeName}</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">{name}</h2>
           <div>
             <div className="flex justify-between">
               <Link
@@ -49,7 +49,7 @@ export default function RecipeCard({ recipeName, image, id }) {
 }
 
 RecipeCard.propTypes = {
-  recipeName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

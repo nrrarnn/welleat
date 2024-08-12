@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import RecipeCard from "../../components/RecipeCard";
@@ -9,30 +8,15 @@ import SearchForm from "../../components/SearchForm";
 import { PropTypes } from "prop-types";
 import { NoDataDisplay } from "../../components/NoDataDisplay";
 import { Spinner } from "@nextui-org/react";
+import { fetchData } from "../../data/baseAxios";
+import { getRecipes } from "../../data/recipe";
 
 const DaftarProduct = ({ token }) => {
   const [listRecipes, setListRecipes] = useState([]);
-  const [results, setResults] = useState([]);
-  const [view, setView] = useState("list");
-  const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
 
-  const getRecipes = async () => {
-    try {
-      const response = await axios.get(
-        "https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist"
-      );
-      setListRecipes(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getRecipes();
+    fetchData(setListRecipes, setLoading, getRecipes);
   }, []);
 
   useEffect(() => {
