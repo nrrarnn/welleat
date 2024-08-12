@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import RecipeCard from "./RecipeCard";
-import { getRecipes } from "../data/recipe";
+import RecipeCard from "../../components/RecipeCard";
+import { getRecipes } from "../../data/recipe";
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
