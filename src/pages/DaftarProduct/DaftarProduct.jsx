@@ -13,6 +13,10 @@ import { getRecipes } from "../../data/recipe";
 
 const DaftarProduct = ({ token }) => {
   const [listRecipes, setListRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState("list");
+  const [results, setResults] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -21,7 +21,6 @@ export async function getFavorite() {
   });
   return response.data;
 }
-
 // export function loaderRecipes({ request: { signal } }) {
 //   return getRecipes({ signal });
 // }
@@ -31,3 +30,4 @@ export async function getFavorite() {
 
 //   return getRecipe(id, { signal });
 // }
+//
