@@ -27,7 +27,7 @@ export default function RecipeCard({ recipeName, image, id }) {
           <div>
             <div className="flex justify-between">
               <Link
-               to={`/detail-recipe/${id}`}
+                to={`/detail-recipe/${id}`}
                 className="bg-blue-500 text-white px-5 mr-4 py-2 rounded hover:bg-blue-600 active:to-blue-300"
               >
                 Lihat Resep
@@ -54,4 +54,5 @@ export default function RecipeCard({ recipeName, image, id }) {
 RecipeCard.propTypes = {
   recipeName: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

@@ -31,11 +31,12 @@ const Login = () => {
       if (user) {
         const token = user.id;
         const getToken = generateToken(token);
-
+        
         console.log("User:", user);
         console.log("Generated Token:", getToken);
-
         Cookies.set("authToken", getToken);
+        Cookies.set("dataUser",JSON.stringify(user))
+        
 
         Swal.fire({
           title: "Confirmation",
@@ -45,7 +46,7 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            navigate("/user");
+            navigate("/daftar-product");
           }
         });
       } else {

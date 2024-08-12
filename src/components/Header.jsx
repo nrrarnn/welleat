@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import withAuth from "../hoc/withAuth";
+import { Avatar } from "@nextui-org/react";
 
-const Header = () => {
+const Header = ({dataUser, token}) => {
   return (
     <>
       <header className="sticky font-poppins top-0 flex h-20 w-full bg-white shadow-md px-12 justify-between items-center z-50">
@@ -26,16 +28,24 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className="">
-          <Link to={"/login"}>
-            <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">
-              Masuk
-            </button>
-          </Link>
-        </div>
+         {token ? (
+                <div className="flex justify-center items-center gap-2">
+                    <Avatar />
+                    <h1>{dataUser ? dataUser.username : 'User'}</h1> {/* Menangani kasus di mana userData mungkin null */}
+                </div>
+            ) : (
+                <div className="">
+                    <Link to={"/login"}>
+                        <button className="px-5 py-2 bg-sky-400 rounded-full text-white font-medium">
+                            Masuk
+                        </button>
+                    </Link>
+                </div>
+            )}
+        
       </header>
     </>
   );
 };
 
-export default Header;
+export default withAuth(Header);
