@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 export default function RecipeCard({ name, image, id }) {
   const [isRead, setIsRead] = useState(false);
 
-  // const imgUrl =
-  //   "https://peasandcrayons.com/wp-content/uploads/2016/08/Blueberry-Broccoli-Spinach-Salad-Poppyseed-Ranch-dressing-recipe-7143.jpg";
-
   const redHeartClick = () => {
     setIsRead(!isRead);
   };
