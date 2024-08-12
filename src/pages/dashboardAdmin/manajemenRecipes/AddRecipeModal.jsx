@@ -12,7 +12,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const recipeSchema = z.object({
 	name: z.string().min(1, { message: "Name is required" }),
@@ -21,16 +22,10 @@ const recipeSchema = z.object({
 	image: z.string().min(1, { message: "Image is required" }),
 });
 
-const RecipeModal = ({ visible, onClose, recipe, onSave }) => {
-	const {
-		control,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm({
+const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
+	const { control, handleSubmit, reset } = useForm({
 		resolver: zodResolver(recipeSchema),
 		defaultValues: {
-			id: "",
 			name: "",
 			bahan: "",
 			step: "",
@@ -38,85 +33,94 @@ const RecipeModal = ({ visible, onClose, recipe, onSave }) => {
 		},
 	});
 
-	useEffect(() => {
-		if (recipe) {
-			reset(recipe);
-		} else {
-			reset({
-				id: "",
-				name: "",
-				bahan: "",
-				step: "",
-				image: "",
+	const createResep = async (data) => {
+		try {
+			const payload = {
+				name: data.name,
+				bahan: data.bahan,
+				step: data.step,
+				image: data.image,
+			};
+			await axios.post(
+				"https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist",
+				payload
+			);
+			Swal.fire({
+				icon: "success",
+				title: "Recipe added successfully!",
+				text: "Your recipe has been saved.",
 			});
+			onRecipeCreated(); // Call the function to refresh the data
+		} catch (error) {
+			console.error(error);
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Something went wrong! Please try again.",
+			});
+		} finally {
+			onClose();
+			reset();
 		}
-	}, [recipe, reset]);
-
-	const handleSave = (data) => {
-		onSave(data);
-		onClose();
-		reset();
 	};
 
 	return (
 		<Modal isOpen={visible} onOpenChange={onClose}>
 			<ModalContent>
 				<>
-					<ModalHeader className="flex flex-col gap-1">
-						{recipe ? "Edit Product" : "Add Product"}
-					</ModalHeader>
-					<form onSubmit={handleSubmit(handleSave)}>
+					<ModalHeader className="flex flex-col gap-1">Add Recipe</ModalHeader>
+					<form onSubmit={handleSubmit(createResep)}>
 						<ModalBody>
 							<Controller
 								name="name"
 								control={control}
-								render={({ field }) => (
+								render={({ field, fieldState }) => (
 									<Input
 										{...field}
-										label="Nama Resep"
+										label="Recipe Name"
 										fullWidth
-										isInvalid={!!errors.name}
-										errorMessage={errors.name?.message}
+										isInvalid={!!fieldState.error}
+										errorMessage={fieldState.error?.message}
 									/>
 								)}
 							/>
 							<Controller
 								name="bahan"
 								control={control}
-								render={({ field }) => (
+								render={({ field, fieldState }) => (
 									<Textarea
 										{...field}
-										label="Bahan"
+										label="Ingredients"
 										fullWidth
-										isInvalid={!!errors.bahan}
-										errorMessage={errors.bahan?.message}
+										isInvalid={!!fieldState.error}
+										errorMessage={fieldState.error?.message}
 									/>
 								)}
 							/>
 							<Controller
 								name="step"
 								control={control}
-								render={({ field }) => (
+								render={({ field, fieldState }) => (
 									<Textarea
 										{...field}
-										label="Step"
+										label="Steps"
 										fullWidth
-										isInvalid={!!errors.step}
-										errorMessage={errors.step?.message}
+										isInvalid={!!fieldState.error}
+										errorMessage={fieldState.error?.message}
 									/>
 								)}
 							/>
 							<Controller
 								name="image"
 								control={control}
-								render={({ field }) => (
+								render={({ field, fieldState }) => (
 									<Input
 										{...field}
-										label="Link Gambar"
+										label="Image Link"
 										fullWidth
 										description="Please enter a valid image URL (e.g., https://example.com/image.jpg)."
-										isInvalid={!!errors.image}
-										errorMessage={errors.image?.message}
+										isInvalid={!!fieldState.error}
+										errorMessage={fieldState.error?.message}
 									/>
 								)}
 							/>
@@ -133,7 +137,7 @@ const RecipeModal = ({ visible, onClose, recipe, onSave }) => {
 								Close
 							</Button>
 							<Button color="primary" type="submit">
-								{recipe ? "Update" : "Add"}
+								Add
 							</Button>
 						</ModalFooter>
 					</form>
@@ -143,11 +147,10 @@ const RecipeModal = ({ visible, onClose, recipe, onSave }) => {
 	);
 };
 
-export default RecipeModal;
+export default AddRecipeModal;
 
-RecipeModal.propTypes = {
+AddRecipeModal.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	recipe: PropTypes.object,
-	onSave: PropTypes.func.isRequired,
+	onRecipeCreated: PropTypes.func.isRequired, // Define the prop type for onRecipeCreated
 };

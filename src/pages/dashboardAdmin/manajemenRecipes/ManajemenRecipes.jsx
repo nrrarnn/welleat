@@ -2,16 +2,15 @@ import { IoMdAdd } from "react-icons/io";
 import ListRecipes from "./ListRecipes";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import RecipeModal from "./RecipeModal";
-import ConfirmationModal from "../../../components/ConfirmationModal";
 import Swal from "sweetalert2";
+import AddRecipeModal from "./AddRecipeModal"; // Import the AddRecipeModal component
+import ConfirmationModal from "../../../components/ConfirmationModal";
 
 const ManajemenRecipes = () => {
 	const [listRecipes, setListRecipes] = useState([]);
-	const [recipe, setRecipe] = useState(null);
-	const [modalVisible, setModalVisible] = useState(false);
-	const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 	const [recipeToDelete, setRecipeToDelete] = useState(null);
+	const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+	const [showModalCreate, setShowModalCreate] = useState(false);
 
 	const getRecipes = async () => {
 		try {
@@ -21,54 +20,6 @@ const ManajemenRecipes = () => {
 			setListRecipes(response.data);
 		} catch (error) {
 			console.log(error);
-		}
-	};
-
-	const getRecipe = async (recipeId) => {
-		try {
-			const response = await axios.get(
-				`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipeId}`
-			);
-			setRecipe(response.data);
-      console.log(response.data);
-			setModalVisible(true);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-  
-
-	const handleSave = async (recipe) => {
-		console.log("Recipe to be saved:", recipe); 
-		try {
-			if (recipe.id) {
-				await axios.put(
-					`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipe.id}`,
-					recipe
-				);
-				Swal.fire({
-					title: "Berhasil",
-					text: "Recipe updated successfully",
-					icon: "success",
-				});
-			} else {
-				await axios.post(
-					"https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist",
-					recipe
-				);
-				Swal.fire({
-					title: "Berhasil",
-					text: "Recipe added successfully",
-					icon: "success",
-				});
-			}
-			getRecipes();
-		} catch (error) {
-			Swal.fire({
-				title: "Error",
-				text: error.response?.data?.message || "Something went wrong!",
-				icon: "error",
-			});
 		}
 	};
 
@@ -93,15 +44,6 @@ const ManajemenRecipes = () => {
 		}
 	};
 
-	const handleAddClick = () => {
-		setRecipe(null);
-		setModalVisible(true);
-	};
-
-	const handleEditClick = (id) => {
-		getRecipe(id);
-	};
-
 	const handleDeleteClick = (id) => {
 		setRecipeToDelete(id);
 		setDeleteModalVisible(true);
@@ -122,7 +64,7 @@ const ManajemenRecipes = () => {
 						</p>
 					</div>
 					<button
-						onClick={handleAddClick}
+						onClick={() => setShowModalCreate(true)}
 						className="flex items-center ml-auto bg-blue-500 text-white px-4 py-2 rounded-lg"
 					>
 						<IoMdAdd className="mr-2" /> Add
@@ -135,22 +77,21 @@ const ManajemenRecipes = () => {
 					name={recipe.name}
 					img={recipe.image}
 					bahan={recipe.bahan}
-					onEdit={() => handleEditClick(recipe.id)}
 					onDelete={() => handleDeleteClick(recipe.id)}
 				/>
 			))}
-
-			<RecipeModal
-				visible={modalVisible}
-				onClose={() => setModalVisible(false)}
-				recipe={recipe}
-				onSave={handleSave}
-			/>
 
 			<ConfirmationModal
 				visible={deleteModalVisible}
 				onClose={() => setDeleteModalVisible(false)}
 				onConfirm={handleDelete}
+			/>
+
+			{/* Add the AddRecipeModal component and control its visibility */}
+			<AddRecipeModal
+				visible={showModalCreate}
+				onClose={() => setShowModalCreate(false)}
+        onRecipeCreated={getRecipes}
 			/>
 		</>
 	);
