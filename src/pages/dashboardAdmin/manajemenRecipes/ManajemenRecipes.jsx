@@ -12,7 +12,6 @@ const ManajemenRecipes = () => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 	const [recipeToDelete, setRecipeToDelete] = useState(null);
-  const [recipeToEdit, setRecipeToEdit] = useState(null);
 
 	const getRecipes = async () => {
 		try {
@@ -44,7 +43,7 @@ const ManajemenRecipes = () => {
 		try {
 			if (recipe.id) {
 				await axios.put(
-					`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipeToEdit}`,
+					`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipe.id}`,
 					recipe
 				);
 				Swal.fire({
@@ -100,7 +99,6 @@ const ManajemenRecipes = () => {
 	};
 
 	const handleEditClick = (id) => {
-    setRecipeToEdit(id);
 		getRecipe(id);
 	};
 
