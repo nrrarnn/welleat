@@ -3,9 +3,11 @@ import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [loginState, setLoginState] = useState({
     email: "",
     password: "",
@@ -31,12 +33,16 @@ const Login = () => {
       if (user) {
         const token = user.id;
         const getToken = generateToken(token);
+       
         
         console.log("User:", user);
         console.log("Generated Token:", getToken);
         Cookies.set("authToken", getToken);
         Cookies.set("dataUser",JSON.stringify(user))
-        
+         dispatch({
+          type: 'LOGIN',
+          payload : getToken
+        })
 
         Swal.fire({
           title: "Confirmation",
