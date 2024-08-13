@@ -18,6 +18,7 @@ const DaftarProduct = ({ token }) => {
   const [results, setResults] = useState([]);
 
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     fetchData(setListRecipes, setLoading, getRecipes);
