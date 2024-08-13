@@ -6,7 +6,7 @@ import UserCard from "./pages/userPage/UserCard";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import DaftarProduct from "./pages/DaftarProduct/DaftarProduct";
-import DashboardPage from "./pages/dashboardAdmin/DashboardPage";
+import HomePageUser from "./pages/userPage/HomePageUser";
 
 function App() {
   return (
@@ -17,6 +17,8 @@ function App() {
         <Route element={<DetailRecipe />} path="/detail-recipe/:id" />
         <Route element={<FavoritePage />} path="/favorite" />
         <Route element={<UserCard />} path="/user" />
+        <Route element={<HomePageUser />} path="/homepage-user" />
+
         <Route element={<Register />} path="/register" />
         <Route element={<DaftarProduct />} path="/daftar-product" />
         <Route element={<DashboardPage/>} path="/dashboard-admin" />

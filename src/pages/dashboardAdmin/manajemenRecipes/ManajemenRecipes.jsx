@@ -3,7 +3,8 @@ import ListRecipes from "./ListRecipes";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import AddRecipeModal from "./AddRecipeModal"; // Import the AddRecipeModal component
+import AddRecipeModal from "./AddRecipeModal";
+import EditRecipeModal from "./EditRecipeModal";
 import ConfirmationModal from "../../../components/ConfirmationModal";
 
 const ManajemenRecipes = () => {
@@ -11,6 +12,8 @@ const ManajemenRecipes = () => {
 	const [recipeToDelete, setRecipeToDelete] = useState(null);
 	const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 	const [showModalCreate, setShowModalCreate] = useState(false);
+	const [editModalVisible, setEditModalVisible] = useState(false);
+	const [recipeToEdit, setRecipeToEdit] = useState(null);
 
 	const getRecipes = async () => {
 		try {
@@ -49,6 +52,11 @@ const ManajemenRecipes = () => {
 		setDeleteModalVisible(true);
 	};
 
+	const handleEditClick = (recipe) => {
+		setRecipeToEdit(recipe);
+		setEditModalVisible(true);
+	};
+
 	useEffect(() => {
 		getRecipes();
 	}, []);
@@ -78,6 +86,7 @@ const ManajemenRecipes = () => {
 					img={recipe.image}
 					bahan={recipe.bahan}
 					onDelete={() => handleDeleteClick(recipe.id)}
+					onEdit={() => handleEditClick(recipe)}
 				/>
 			))}
 
@@ -87,11 +96,17 @@ const ManajemenRecipes = () => {
 				onConfirm={handleDelete}
 			/>
 
-			{/* Add the AddRecipeModal component and control its visibility */}
 			<AddRecipeModal
 				visible={showModalCreate}
 				onClose={() => setShowModalCreate(false)}
-        onRecipeCreated={getRecipes}
+				onRecipeCreated={getRecipes}
+			/>
+
+			<EditRecipeModal
+				visible={editModalVisible}
+				onClose={() => setEditModalVisible(false)}
+				recipe={recipeToEdit}
+				onRecipeUpdated={getRecipes}
 			/>
 		</>
 	);

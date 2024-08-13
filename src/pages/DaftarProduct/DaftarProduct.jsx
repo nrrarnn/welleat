@@ -38,7 +38,9 @@ const DaftarProduct = ({ token }) => {
     setLoading(true);
 
     const filteredResults = listRecipes.filter((recipe) =>
-      recipe.bahan.toLowerCase().includes(query.toLowerCase())
+      recipe.ingredient.some((ingredient) =>
+        ingredient.toLowerCase().includes(query.toLowerCase())
+      )
     );
 
     setResults(filteredResults);
@@ -69,12 +71,7 @@ const DaftarProduct = ({ token }) => {
           {view === "list" &&
             (listRecipes.length > 0 ? (
               listRecipes.map((recipe, index) => (
-                <RecipeCard
-                  key={index}
-                  recipeName={recipe.name}
-                  image={recipe.image}
-                  id={recipe.id}
-                />
+                <RecipeCard key={index} {...recipe} />
               ))
             ) : (
               <NoDataDisplay />
