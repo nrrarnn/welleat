@@ -56,21 +56,38 @@ const Header = ({ dataUser, token }) => {
             <span className="text-slate-900">Well</span>Eat.
           </h1>
         </div>
-        <div className={`${token ? "hidden" : "flex"}`}>
-          <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
-            <li className="hover:text-sky-500">
-              <a href="#home">Beranda</a>
-            </li>
-            <li className="hover:text-sky-500">
-              <a href="#about">Tentang</a>
-            </li>
-            <li className="hover:text-sky-500">
-              <a href="#testimoni">Testimoni</a>
-            </li>
-            <li className="hover:text-sky-500">
-              <a href="#faq">FAQ</a>
-            </li>
-          </ul>
+        <div className="flex">
+          {
+            token ? (
+              <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
+                <li className="hover:text-sky-500">
+                  <Link to="/">Beranda</Link>
+                </li>
+                <li className="hover:text-sky-500">
+                  <Link to="/daftar-product">Daftar Product</Link>
+                </li>
+                <li className="hover:text-sky-500">
+                  <Link to="/favorite">Favorite</Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
+                  <li className="hover:text-sky-500">
+                    <a href="#home">Beranda</a>
+                  </li>
+                  <li className="hover:text-sky-500">
+                    <a href="#about">Tentang</a>
+                  </li>
+                  <li className="hover:text-sky-500">
+                    <a href="#testimoni">Testimoni</a>
+                  </li>
+                  <li className="hover:text-sky-500">
+                    <a href="#faq">FAQ</a>
+                  </li>
+            </ul>
+            )
+          }
+          
         </div>
         {token ? (
           <div className="flex gap-3 items-center">

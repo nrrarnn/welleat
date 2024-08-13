@@ -1,4 +1,3 @@
-import NavbarUser from "./NavbarUser";
 import LandingPageUser from "./LandingPageUser";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";

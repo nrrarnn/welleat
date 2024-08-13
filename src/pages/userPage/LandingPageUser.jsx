@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaAppleAlt, FaHeart, FaCarrot } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function LandingPageUser() {
   return (
@@ -16,9 +17,9 @@ function LandingPageUser() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <a
+            <Link
               className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
-              href="/daftar-product"
+              to="/daftar-product"
             >
               <FaAppleAlt className="size-10 text-green-500" size={40} />
               <h2 className="mt-4 text-xl font-bold text-gray">Daftar Product</h2>
@@ -26,11 +27,11 @@ function LandingPageUser() {
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis, ab!
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
-            </a>
+            </Link>
 
-            <a
+            <Link
               className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-red-500/10 hover:shadow-red-500/10"
-              href="/favorite"
+              to="/favorite"
             >
               <FaHeart className="size-10 text-red-500" size={40} />
               <h2 className="mt-4 text-xl font-bold text-gray">Favorite</h2>
@@ -38,7 +39,7 @@ function LandingPageUser() {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nostrum?
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
-            </a>
+            </Link>
 
             <a
               className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
