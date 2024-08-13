@@ -1,10 +1,9 @@
-import Cookies from "js-cookie";
 
 // Mengambil data pengguna dari cookie
-const userDataFromCookie = Cookies.get("dataUser");
+const userData = localStorage.getItem("dataUser");
 
 const DEFAULT_STATE = {
-   dataUser: userDataFromCookie // Menggunakan JSON.parse jika data disimpan sebagai string JSONdataUser: userDataFromCookie // Menggunakan JSON.parse jika data disimpan sebagai string JSON
+   dataUser: userData // Menggunakan JSON.parse jika data disimpan sebagai string JSONdataUser: userDataFromCookie // Menggunakan JSON.parse jika data disimpan sebagai string JSON
 };
 
 // Reducer untuk pengguna

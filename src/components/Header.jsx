@@ -9,16 +9,14 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ dataUser, token }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    Cookies.remove("authToken");
-    Cookies.remove("dataUser")
+    localStorage.removeItem("authToken");
     dispatch({ type: "LOGOUT" });
     dispatch({ type: "KELUAR" });
     navigate("/");
@@ -91,7 +89,7 @@ const Header = ({ dataUser, token }) => {
         </div>
         {token ? (
           <div className="flex gap-3 items-center">
-            <div>{dataUser.username}</div>
+            <div>{dataUser}</div>
             <Dropdown>
               <DropdownTrigger>
                 <Avatar />

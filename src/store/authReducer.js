@@ -1,7 +1,4 @@
-import Cookies from "js-cookie";
-
-
-const token = Cookies.get("authToken");
+const token = localStorage.getItem("authToken");
 
 const DEFAULT_STATE = {
   token : token
