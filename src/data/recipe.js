@@ -21,7 +21,7 @@ export async function createRecipe(newRecipe) {
     const responseRecipe = await baseApi.post(
       `/resep`,
       {
-        recipeName: newRecipe.name,
+        recipeName: newRecipe.recipeName,
         ingredient: newRecipe.ingredient,
         step: newRecipe.step,
         image: newRecipe.image,
@@ -43,7 +43,7 @@ export async function editRecipe(newRecipe, id) {
     const responseRecipe = await baseApi.put(
       `/resep/${id}`,
       {
-        recipeName: newRecipe.name,
+        recipeName: newRecipe.recipeName,
         ingredient: newRecipe.ingredient,
         step: newRecipe.step,
         image: newRecipe.image,

@@ -1,11 +1,12 @@
 import { IoMdAdd } from "react-icons/io";
 import ListRecipes from "./ListRecipes";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import AddRecipeModal from "./AddRecipeModal";
 import EditRecipeModal from "./EditRecipeModal";
 import ConfirmationModal from "../../../components/ConfirmationModal";
+import { deleteRecipe, getRecipes } from "../../../data/recipe";
+import DetailRecipeModal from "./DetailRecipeModal";
 
 const ManajemenRecipes = () => {
 	const [listRecipes, setListRecipes] = useState([]);
@@ -14,12 +15,12 @@ const ManajemenRecipes = () => {
 	const [showModalCreate, setShowModalCreate] = useState(false);
 	const [editModalVisible, setEditModalVisible] = useState(false);
 	const [recipeToEdit, setRecipeToEdit] = useState(null);
+	const [detailModalVisible, setDetailModalVisible] = useState(false);
+	const [recipeToView, setRecipeToView] = useState(null);
 
-	const getRecipes = async () => {
+	const getRecipesData = async () => {
 		try {
-			const response = await axios.get(
-				"https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist"
-			);
+			const response = await getRecipes();
 			setListRecipes(response.data);
 		} catch (error) {
 			console.log(error);
@@ -28,20 +29,18 @@ const ManajemenRecipes = () => {
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(
-				`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipeToDelete}`
-			);
+			await deleteRecipe(recipeToDelete);
 			Swal.fire({
 				title: "Berhasil",
 				text: "Recipe deleted successfully",
 				icon: "success",
 			});
 			setDeleteModalVisible(false);
-			getRecipes();
+			getRecipesData();
 		} catch (error) {
 			Swal.fire({
 				title: "Error",
-				text: error.response.data.message,
+				text: error.response?.data?.message || "Something went wrong",
 				icon: "error",
 			});
 		}
@@ -57,8 +56,13 @@ const ManajemenRecipes = () => {
 		setEditModalVisible(true);
 	};
 
+	const handleDetailClick = (recipe) => {
+		setRecipeToView(recipe);
+		setDetailModalVisible(true);
+	};
+
 	useEffect(() => {
-		getRecipes();
+		getRecipesData();
 	}, []);
 
 	return (
@@ -81,12 +85,14 @@ const ManajemenRecipes = () => {
 			</div>
 			{listRecipes.map((recipe) => (
 				<ListRecipes
-					key={recipe.id}
-					name={recipe.name}
+					key={recipe._id}
+					id={recipe._id}
+					name={recipe.recipeName}
 					img={recipe.image}
-					bahan={recipe.bahan}
-					onDelete={() => handleDeleteClick(recipe.id)}
+					bahan={recipe.ingredient}
+					onDelete={() => handleDeleteClick(recipe._id)}
 					onEdit={() => handleEditClick(recipe)}
+					onDetail={() => handleDetailClick(recipe)}
 				/>
 			))}
 
@@ -99,14 +105,20 @@ const ManajemenRecipes = () => {
 			<AddRecipeModal
 				visible={showModalCreate}
 				onClose={() => setShowModalCreate(false)}
-				onRecipeCreated={getRecipes}
+				onRecipeCreated={getRecipesData}
 			/>
 
 			<EditRecipeModal
 				visible={editModalVisible}
 				onClose={() => setEditModalVisible(false)}
 				recipe={recipeToEdit}
-				onRecipeUpdated={getRecipes}
+				onRecipeUpdated={getRecipesData}
+			/>
+
+			<DetailRecipeModal
+				visible={detailModalVisible}
+				onClose={() => setDetailModalVisible(false)}
+				recipe={recipeToView}
 			/>
 		</>
 	);
