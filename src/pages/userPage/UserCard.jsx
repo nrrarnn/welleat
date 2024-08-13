@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Avatar } from "@nextui-org/react";
+import withAuth from "../../hoc/withAuth";
 
 const UserCard = () => {
   // Mengelola status dropdown
@@ -329,4 +330,6 @@ const UserCard = () => {
   );
 };
 
-export default UserCard;
+// Komponen untuk menampilkan setiap card user
+
+export default withAuth(UserCard);

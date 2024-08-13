@@ -21,6 +21,7 @@ function App() {
 
         <Route element={<Register />} path="/register" />
         <Route element={<DaftarProduct />} path="/daftar-product" />
+        <Route element={<DashboardPage/>} path="/dashboard-admin" />
       </Routes>
     </>
   );

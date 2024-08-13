@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import RecipeCard from "./RecipeCard";
-import { getRecipes } from "../data/recipe";
-import NavbarUser from "../userPage/NavbarUser";
+import RecipeCard from "../../components/RecipeCard";
+import { getFavByUserId } from "../../data/favorite";
+import { Spinner } from "@nextui-org/react";
+import { fetchData } from "../../data/baseAxios";
+import { useSelector } from "react-redux";
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const userId = useSelector((state) => state.users.dataUser.id);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getRecipes();
+    fetchData(setRecipes, setLoading, () => getFavByUserId(userId));
+  }, [userId]);
 
-      setRecipes(data);
-    };
-
-    fetchData();
-  }, []);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner label="Loading ..." size="lg" />
+      </div>
+    );
+  }
 
   return (
     <>
