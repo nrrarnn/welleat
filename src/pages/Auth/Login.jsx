@@ -21,27 +21,33 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(
-        "https://66b84cbf3ce57325ac76d207.mockapi.io/users/users"
+      const response = await axios.post(
+        "https://api-resep-three.vercel.app/api/v1/auth/login", {
+          "email" : loginState.email,
+          "password": loginState.password
+        }
       );
+      const token = response.data.token;
+      const role = response.data.user.role;
+      const username = response.data.user.username;
+      const status = response.data.status
 
-      const user = response.data.find(
-        (u) =>
-          u.email === loginState.email && u.password === loginState.password
-      );
+      console.log(token)
+      console.log(username)
+      console.log(role)
 
-      if (user) {
-        const token = user.id;
-        const getToken = generateToken(token);
-       
-        
-        console.log("User:", user);
-        console.log("Generated Token:", getToken);
-        Cookies.set("authToken", getToken);
-        Cookies.set("dataUser",JSON.stringify(user))
+      
+
+      if (status === "success") {
+        Cookies.set("authToken", token);
+        Cookies.set("dataUser", username)
          dispatch({
           type: 'LOGIN',
-          payload : getToken
+          payload : token
+        })
+        dispatch({
+          type: 'MASUK',
+          payload: username
         })
 
         Swal.fire({
@@ -52,7 +58,12 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            navigate("/homepage-user");
+            if(role === 'admin'){
+              navigate("/dashboard-admin");
+            } else if(role === 'user'){
+              navigate("/daftar-product")
+            }
+            
           }
         });
       } else {
@@ -107,9 +118,7 @@ const Login = () => {
     }
   };
 
-  const generateToken = (user) => {
-    return `${user}${new Date().getTime()}`;
-  };
+  
 
   return (
     <>
@@ -125,7 +134,7 @@ const Login = () => {
             className="text-lg lg:text-3xl font-bold text-[#0396C7]"
             id="logo"
           >
-            StoreID
+            WELLEAT
           </span>
           <span
             onClick={toRegister}

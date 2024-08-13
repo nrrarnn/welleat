@@ -18,7 +18,9 @@ const Header = ({ dataUser, token }) => {
 
   const handleLogout = () => {
     Cookies.remove("authToken");
+    Cookies.remove("dataUser")
     dispatch({ type: "LOGOUT" });
+    dispatch({ type: "KELUAR" });
     navigate("/");
   };
 
@@ -72,7 +74,7 @@ const Header = ({ dataUser, token }) => {
         </div>
         {token ? (
           <div className="flex gap-3 items-center">
-            <div>{dataUser.username}</div>
+            <div>{dataUser}</div>
             <Dropdown>
               <DropdownTrigger>
                 <Avatar />

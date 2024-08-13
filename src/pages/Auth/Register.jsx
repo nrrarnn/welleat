@@ -1,5 +1,4 @@
 import { useState } from "react";
-import bgCoverUser from "../img/Rectangle 2775.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,13 +6,16 @@ import Swal from "sweetalert2";
 const Register = () => {
   const navigate = useNavigate();
   const [registerState, setRegisterState] = useState({
-    nama_lengkap: "",
     username: "",
+    email: "",
     password: "",
     showPassword: false,
-    email: "",
-    nomor_hp: "",
   });
+
+  const toLogin = () => {
+    navigate("/login");
+  };
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -31,13 +33,11 @@ const Register = () => {
     }
     try {
       const response = await axios.post(
-        "https://66b84cbf3ce57325ac76d207.mockapi.io/users/users",
+        "https://api-resep-three.vercel.app/api/v1/auth/register",
         {
-          nama_lengkap: registerState.nama_lengkap,
           username: registerState.username,
           password: registerState.password,
           email: registerState.email,
-          nomor_hp: registerState.nomor_hp,
         }
       );
       if (response) {
@@ -77,186 +77,121 @@ const Register = () => {
   };
 
   return (
-    <div
-      id="register-container"
-      className="h-screen w-screen flex justify-center items-center font-['Poppins']"
-    >
-      <div id="register-main" className="main h-[85vh] w-[90vw]">
-        <div id="title-container" className="title flex flex-col mb-8">
+    <>
+      <div
+        className="bg-white w-screen h-screen text-black"
+      >
+        <div
+          className="bg-white shadow-md text-black navbar w-screen h-[10vh] md:h-[15vh] flex justify-between px-8 md:px-16 items-center"
+          id="navbar"
+        >
           <span
-            id="register-title"
-            className="font=['Poppins'] text-xl font-semibold text-[#333333]"
+            className="text-lg lg:text-3xl font-bold text-[#0396C7]"
+            id="logo"
           >
-            Register
+            WELLEAT
           </span>
           <span
-            id="register-subtitle"
-            className="text-[#828282] text-sm font-semibold"
+            onClick={toLogin}
+            className="underline text-xs lg:text-lg font-bold text-[rgb(130,130,130)] cursor-pointer"
+            id="sign-up-link"
           >
-            Menambah akun
+            Masuk
           </span>
         </div>
 
-        <div id="shadow-container" className="shadow-md h-[75vh] rounded-md">
-          <div
-            id="image-container"
-            className="container w-full md:h-[17vh] h-[10vh"
-          >
-            <img src={bgCoverUser} className="h-full w-full" alt="bgCover" />
-          </div>
-
-          <div
-            id="form-container"
-            className="flex flex-col justify-start items-center mt-5 md:px-0 px-3"
-          >
+        <form onSubmit={handleRegister} id="login-form">
+          <div className="flex flex-col py-[8vh] h-[80vh] md:h-[60vh] lg:h-[80%] justify-center items-center gap-5">
             <span
-              id="form-title"
-              className="text-[#333333] font-bold font-['Poppins']"
+              className="font-bold text-[2.8rem] mb-5 font-['Poppins']"
+              id="sign-in-heading"
             >
-              Users Profil
+              Register
             </span>
-            <form onSubmit={handleRegister} id="register-form">
+            <input
+              value={registerState.username}
+              onChange={(e) =>
+                setRegisterState((prev) => ({ ...prev, username: e.target.value }))
+              }
+              type="text"
+              placeholder="Username"
+              className="px-5 py-3 w-10/12 lg:w-1/3 rounded-3xl bg-white text-gray-400 border-2"
+              required
+              id="username-input"
+            />
+            <input
+              value={registerState.email}
+              onChange={(e) =>
+                setRegisterState((prev) => ({ ...prev, email: e.target.value }))
+              }
+              type="email"
+              placeholder="E-mail"
+              className="px-5 py-3 w-10/12 lg:w-1/3 rounded-3xl bg-white text-gray-400 border-2"
+              required
+              id="email-input"
+            />
+            <input
+              value={registerState.password}
+              onChange={(e) =>
+                setRegisterState((prev) => ({ ...prev, password: e.target.value }))
+              }
+              type={registerState.passwordVisible ? "text" : "password"}
+              placeholder="Password"
+              className="px-5 py-3 w-10/12 lg:w-1/3 rounded-3xl bg-white text-gray-400 border-2"
+              required
+              id="password-input"
+            />
+
+            <div className="flex flex-col w-[80vw] lg:w-[32vw] gap-9">
               <div
-                id="form-fields"
-                className="flex md:flex-row flex-col justify-center items-start md:gap-16 gap-5 mt-5"
+                className="flex justify-between items-center"
+                id="password-checkbox"
               >
-                <div className="flex flex-col md:w-1/2 w-full items-start">
-                  <span id="nama-lengkap-label">
-                    Nama Lengkap <span className="text-red-500">*</span>
-                  </span>
+                <span className="text-[#000000]">
                   <input
-                    value={registerState.nama_lengkap}
-                    onChange={(e) =>
+                    onChange={() =>
                       setRegisterState((prev) => ({
                         ...prev,
-                        nama_lengkap: e.target.value,
+                        passwordVisible: !prev.passwordVisible,
                       }))
                     }
-                    maxLength={32}
-                    required
-                    type="text"
-                    className="w-full  border-2 px-[0.4rem] py-[0.3rem] border-[#CED4DA] rounded-md"
-                    id="nama-lengkap-input"
+                    checked={registerState.passwordVisible}
+                    type="checkbox"
+                    name="checkbox"
+                    id="checkbox"
+                    className="bg-[#EDEDED] text-blue-500 text-sm"
                   />
-                  <div className="flex justify-center items-start gap-5">
-                    <div className="flex flex-col mt-2">
-                      <span id="username-label">
-                        Username <span className="text-red-500">*</span>
-                      </span>
-                      <input
-                        value={registerState.username}
-                        onChange={(e) =>
-                          setRegisterState((prev) => ({
-                            ...prev,
-                            username: e.target.value,
-                          }))
-                        }
-                        maxLength={15}
-                        required
-                        type="text"
-                        className="w-full px-[0.4rem]  py-[0.3rem] border-2 border-[#CED4DA] rounded-md"
-                        id="username-input"
-                      />
-                    </div>
-                    <div className="flex flex-col mt-2">
-                      <span id="password-label">
-                        Password <span className="text-red-500">*</span>
-                      </span>
-                      <input
-                        value={registerState.password}
-                        onChange={(e) =>
-                          setRegisterState((prev) => ({
-                            ...prev,
-                            password: e.target.value,
-                          }))
-                        }
-                        required
-                        type={registerState.showPassword ? "text" : "password"}
-                        className="w-full  px-[0.4rem]  py-[0.3rem] border-2 border-[#CED4DA] rounded-md"
-                        id="password-input"
-                      />
-                      <div className="flex justify-center items-center w-11/12 md:w-9/12 mt-3 ">
-                        <input
-                          onChange={() =>
-                            setRegisterState((prev) => ({
-                              ...prev,
-                              showPassword: !prev.showPassword,
-                            }))
-                          }
-                          checked={registerState.showPassword}
-                          type="checkbox"
-                          name="checkbox"
-                          id="checkbox"
-                          className="bg-[#EDEDED] text-blue-500 text-sm"
-                        />
-                        <label
-                          htmlFor="perempuan"
-                          className="text-xs md:text-sm ml-1"
-                        >
-                          Tampilkan Password
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:w-1/2 w-full">
-                  <span id="email-label">
-                    Email <span className="text-red-500">*</span>
+                  <span className="text-sm md:text-base">
+                    {" "}
+                    Tampilkan kata sandi
                   </span>
-                  <input
-                    onChange={(e) =>
-                      setRegisterState((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }))
-                    }
-                    type="email"
-                    className="w-full px-[0.4rem]  py-[0.3rem]  border-2 border-[#CED4DA] rounded-md"
-                    id="email-input"
-                  />
-                  <span className="mt-2" id="nomor-hp-label">
-                    No Handphone <span className="text-red-500">*</span>
-                  </span>
-                  <input
-                    onChange={(e) =>
-                      setRegisterState((prev) => ({
-                        ...prev,
-                        nomor_hp: e.target.value,
-                      }))
-                    }
-                    type="tel"
-                    pattern="[0-9]*"
-                    maxLength={12}
-                    className="w-full px-[0.4rem]  py-[0.3rem] border-2 border-[#CED4DA] rounded-md"
-                    id="nomor-hp-input"
-                  />
-
-                  {registerState.nama_lengkap === "" && (
-                    <span
-                      id="login-link"
-                      className="underline p-2 text-[#0396C7] cursor-pointer "
-                      onClick={() => navigate("/login")}
-                    >
-                      Saya sudah punya akun
-                    </span>
-                  )}
-                </div>
+                </span>
               </div>
-              <div className="flex justify-center items-center">
-                <button
-                  type="submit"
-                  className="py-2  bg-[#0396C7] text-white px-5 rounded-md mt-5"
-                  id="submit-button"
+              <button
+                type="submit"
+                className="py-3 px-10 text-white rounded-3xl font-bold font-['Poppins'] bg-[#0396C7] hover:opacity-80"
+                id="sign-in-button"
+              >
+                Sign In
+              </button>
+              <span
+                className="text-black flex justify-center -mt-5"
+                id="no-account-message"
+              >
+                Sudah punya akun?{" "}
+                <span
+                  onClick={toLogin}
+                  className="cursor-pointer underline ml-3 text-[#041DFF]"
+                  id="register-link"
                 >
-                  Simpan Perubahan
-                </button>
-              </div>
-            </form>
+                  Masuk
+                </span>
+              </span>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </>
   );
 };
 
