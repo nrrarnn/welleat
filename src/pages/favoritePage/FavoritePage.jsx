@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import RecipeCard from "../../components/RecipeCard";
 import { getFavByUserId } from "../../data/favorite";
 import { Spinner } from "@nextui-org/react";
-import { fetchData } from "../../data/baseAxios";
+import { fetchData } from "../../data/fetchData";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 

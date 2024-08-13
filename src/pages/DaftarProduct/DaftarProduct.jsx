@@ -8,7 +8,7 @@ import SearchForm from "../../components/SearchForm";
 import { PropTypes } from "prop-types";
 import { NoDataDisplay } from "../../components/NoDataDisplay";
 import { Spinner } from "@nextui-org/react";
-import { fetchData } from "../../data/baseAxios";
+import { fetchData } from "../../data/fetchData";
 import { getRecipes } from "../../data/recipe";
 
 const DaftarProduct = ({ token }) => {
@@ -18,7 +18,6 @@ const DaftarProduct = ({ token }) => {
   const [results, setResults] = useState([]);
 
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     fetchData(setListRecipes, setLoading, getRecipes);

@@ -4,7 +4,7 @@ import { Button, Input, Spinner } from "@nextui-org/react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { BiArrowBack } from "react-icons/bi";
-import { fetchData, postData } from "../../data/baseAxios";
+import { fetchData, postData } from "../../data/fetchData";
 import { getRecipe } from "../../data/recipe";
 import { getCommentByRecipeId, postComment } from "../../data/comment";
 import { useSelector } from "react-redux";

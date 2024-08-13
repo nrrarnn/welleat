@@ -1,34 +1,13 @@
 import axios from "axios";
+import store from "../store/store";
+const state = store.getState(); // Get the current state
+const token = state.auth.token;
 
 export const baseApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  headers: { Authorization: `Bearer ${token}` },
 });
 
-export const fetchData = (setData, setLoad, getData) => {
-  try {
-    const getResult = async () => {
-      const data = await getData();
-
-      console.log("🚀 ~ getResult ~ data:", data);
-      setData(data);
-    };
-    getResult();
-    setLoad(false);
-  } catch (error) {
-    console.log(error);
-    setLoad(false);
-  }
-};
-
-export const postData = (setLoad, sendData) => {
-  try {
-    const postResult = async () => {
-      await sendData();
-    };
-    postResult();
-    setLoad(false);
-  } catch (error) {
-    console.log(error);
-    setLoad(false);
-  }
-};
+export const useApiWithoutToken = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});

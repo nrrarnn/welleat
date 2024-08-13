@@ -32,7 +32,6 @@ export async function postComment(newComment) {
     console.log("🚀 ~ postComment ~ data:", data);
     const maxId = Math.max(...data.map((comment) => Number(comment.id)));
     console.log("🚀 ~ postComment ~ maxId:", maxId);
-
     const responseComment = await baseApi.post(
       `/comments`,
       {
