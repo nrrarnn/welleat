@@ -31,26 +31,30 @@ const Login = () => {
       const role = response.data.user.role;
       const username = response.data.user.username;
       const status = response.data.status;
-      const user = response.data.user
+      const userid = response.data.user.id
 
       console.log(token)
       console.log(username)
       console.log(role)
-      console.log(user)
+      console.log(userid)
 
       
 
       if (status === "success") {
-        Cookies.set("authToken", token);
-        Cookies.set("dataUser", user);
-        Cookies.set("userId", user);
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("dataUser", username);
+        localStorage.setItem("userId", userid);
          dispatch({
           type: 'LOGIN',
           payload : token
         })
         dispatch({
           type: 'MASUK',
-          payload: user
+          payload: username
+        });
+        dispatch({
+          type: 'MASUKID',
+          payload: userid
         });
         
         
