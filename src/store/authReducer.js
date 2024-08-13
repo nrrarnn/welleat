@@ -1,20 +1,19 @@
 import Cookies from "js-cookie";
 
-
 const token = Cookies.get("authToken");
 
 const DEFAULT_STATE = {
-  token : token
-}
+  token: token,
+};
 
 export const authReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case "LOGIN":
       return {
         ...state,
         token: action.payload,
       };
-    case 'LOGOUT':
+    case "LOGOUT":
       return {
         ...state,
         token: null,
@@ -22,4 +21,4 @@ export const authReducer = (state = DEFAULT_STATE, action) => {
     default:
       return state;
   }
-}
+};

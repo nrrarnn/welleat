@@ -7,3 +7,11 @@ export async function getUsers() {
 
   return response.data;
 }
+
+export async function getUserById(id) {
+  const response = await baseApi.get(`/user/${id}`, {
+    request: { signal: new AbortController().signal },
+  });
+
+  return response.data;
+}
