@@ -7,15 +7,32 @@ import { Spinner } from "@nextui-org/react";
 import { fetchData } from "../../data/fetchData";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header";
+import axios from "axios";
+import withAuth from "../../hoc/withAuth";
 
-export default function FavoritePage() {
+function FavoritePage({token, dataUser }) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userId = useSelector((state) => state.users.dataUser.id);
+  const idUser = dataUser.id
+
+  const getFavoriteRecipe =  async () => {
+    try {
+      const response = await axios.get(`https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`, {
+        headers: { Authorization: `Bearer ${token}` } // Include token for authorization
+      });
+      // Update the state with fetched recipes
+      setRecipes(response.data); // Adjust according to the actual response structure
+    } catch (error) {
+      console.error("Error fetching favorite recipes:", error);
+      // Handle error, e.g., show an error message
+    } finally {
+      setLoading(false); // Set loading to false once data is fetched
+    }
+  };
 
   useEffect(() => {
-    fetchData(setRecipes, setLoading, () => getFavByUserId(userId));
-  }, [userId]);
+    getFavoriteRecipe();
+  }, [idUser]);
 
   if (loading) {
     return (
@@ -36,7 +53,7 @@ export default function FavoritePage() {
             </h2>
             <div className="flex flex-wrap justify-center items-center">
               {recipes.map((recipe) => (
-                <RecipeCard key={recipe.id} {...recipe} />
+                <RecipeCard key={recipe.recipesId._id} name={recipe.recipesId.recipeName} id={recipe.recipesId._id} image={recipe.recipesId.image} />
               ))}
             </div>
           </div>
@@ -46,3 +63,5 @@ export default function FavoritePage() {
     </>
   );
 }
+
+export default withAuth(FavoritePage)

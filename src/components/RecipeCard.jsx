@@ -1,13 +1,74 @@
+import axios from "axios";
 import { PropTypes } from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function RecipeCard({ name, image, id }) {
   const [isRead, setIsRead] = useState(false);
+  const userId = useSelector((state) => state.users.dataUser.id);
+  const token = useSelector((state) => state.auth.token);
 
-  const redHeartClick = () => {
-    setIsRead(!isRead);
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      try {
+        const response = await axios.get(
+          `https://api-resep-three.vercel.app/api/v1/userFavorites/${userId}`,
+          config
+        );
+        
+        const favorites = response.data;
+        
+        const isFavorite = favorites.some(fav => fav.recipesId._id === id);
+        setIsRead(isFavorite);
+        
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
+
+    fetchFavorites();
+  }, [userId, id, token]);
+  
+   const redHeartClick = async () => {
+    const config = {
+          headers: { Authorization: `Bearer ${token}` }
+        };
+
+    try {
+      if (!isRead) {  
+        const response = await axios.post('https://api-resep-three.vercel.app/api/v1/addFavorite', {
+          userId: userId,
+          recipesId: id
+        }, config);
+        console.log(response.data.message);
+        Swal.fire({
+          title: "Success",
+          text: `${response.data.message}`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)"})
+          setIsRead(true)
+      } else { 
+        const response = await axios.delete(`https://api-resep-three.vercel.app/api/v1/removeFavorite`,config);
+        console.log(response.data.message);
+        Swal.fire({
+          title: "Delete Success",
+          text: `${response.data.message}`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "rgb(3 150 199)"})
+          setIsRead(false)
+      }
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
   };
   return (
     <div className="m-2">
