@@ -81,13 +81,13 @@ const DetailRecipe = () => {
             <div className="p-4">
               <img
                 src={recipe.image}
-                alt={recipe.name}
+                alt={recipe.recipeName}
                 className="rounded-md w-full"
               />
             </div>
             <div className="p-4 flex flex-col">
               <h1 className="text-2xl lg:text-3xl font-bold mb-4">
-                {recipe.name}
+                {recipe.recipeName}
               </h1>
               <div className="text-start">
                 <h2 className="text-lg lg:text-xl font-semibold mb-2">Bahan</h2>

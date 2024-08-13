@@ -30,25 +30,30 @@ const Login = () => {
       const token = response.data.token;
       const role = response.data.user.role;
       const username = response.data.user.username;
-      const status = response.data.status
+      const status = response.data.status;
+      const user = response.data.user
 
       console.log(token)
       console.log(username)
       console.log(role)
+      console.log(user)
 
       
 
       if (status === "success") {
         Cookies.set("authToken", token);
-        Cookies.set("dataUser", username)
+        Cookies.set("dataUser", user);
+        Cookies.set("userId", user);
          dispatch({
           type: 'LOGIN',
           payload : token
         })
         dispatch({
           type: 'MASUK',
-          payload: username
-        })
+          payload: user
+        });
+        
+        
 
         Swal.fire({
           title: "Confirmation",

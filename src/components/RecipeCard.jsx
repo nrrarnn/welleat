@@ -15,7 +15,7 @@ export default function RecipeCard({ name, image, id }) {
         <div className="p-3">
           <img
             className=" w-full h-[220px]  object-cover rounded-lg"
-            src={image}
+            src={`${image}`}
             alt="Card Image"
           />
         </div>

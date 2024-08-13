@@ -25,10 +25,10 @@ const DaftarProduct = ({ token }) => {
 
   useEffect(() => {
     if (!token) {
-      // If no token is present, redirect to the login page
+      
       navigate("/login");
     } else {
-      // Fetch the recipes if the token is present
+      
       getRecipes();
     }
   }, [token]);
@@ -70,7 +70,10 @@ const DaftarProduct = ({ token }) => {
           {view === "list" &&
             (listRecipes.length > 0 ? (
               listRecipes.map((recipe, index) => (
-                <RecipeCard key={index} {...recipe} />
+                <RecipeCard key={index}
+                  name={recipe.recipeName}
+                  image={recipe.image}
+                  id={recipe._id} />
               ))
             ) : (
               <NoDataDisplay />
@@ -81,9 +84,9 @@ const DaftarProduct = ({ token }) => {
               results.map((recipe, index) => (
                 <RecipeCard
                   key={index}
-                  recipeName={recipe.name}
+                  name={recipe.recipeName}
                   image={recipe.image}
-                  id={recipe.id}
+                  id={recipe._id}
                 />
               ))
             ) : (

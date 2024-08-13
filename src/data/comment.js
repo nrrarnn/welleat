@@ -1,7 +1,7 @@
 import { baseApi } from "./baseAxios";
 
 export async function getComments() {
-  const response = await baseApi.get("/comments", {
+  const response = await baseApi.get("/comment", {
     request: { signal: new AbortController().signal },
   });
 
@@ -9,14 +9,14 @@ export async function getComments() {
 }
 
 export async function getComment(id) {
-  const response = await baseApi.get(`/comments/${id}`, {
+  const response = await baseApi.get(`/comment/${id}`, {
     request: { signal: new AbortController().signal },
   });
   return response.data;
 }
 
 export async function getCommentByRecipeId(idRecipe) {
-  const responseComment = await baseApi.get(`/comments`, {
+  const responseComment = await baseApi.get(`/commentbyresepId/${idRecipe}`, {
     request: { signal: new AbortController().signal },
   });
 
@@ -33,11 +33,11 @@ export async function postComment(newComment) {
     const maxId = Math.max(...data.map((comment) => Number(comment.id)));
     console.log("🚀 ~ postComment ~ maxId:", maxId);
     const responseComment = await baseApi.post(
-      `/comments`,
+      `/comment`,
       {
         recipeId: newComment.recipeId,
         content: newComment.content,
-        userId: newComment.useerId,
+        userId: newComment.userId,
         createdAt: new Date().toISOString(),
       },
       {

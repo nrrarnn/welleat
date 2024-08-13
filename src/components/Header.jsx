@@ -91,7 +91,7 @@ const Header = ({ dataUser, token }) => {
         </div>
         {token ? (
           <div className="flex gap-3 items-center">
-            <div>{dataUser}</div>
+            <div>{dataUser.username}</div>
             <Dropdown>
               <DropdownTrigger>
                 <Avatar />
