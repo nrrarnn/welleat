@@ -26,7 +26,7 @@ export default function FavoritePage() {
 
   return (
     <>
-      <Header />
+      <NavbarUser />
       <div className="flex justify-center items-center py-3 px-20">
         <div className="flex  border-2 p-2 rounded-xl bg-slate-50">
           <div className="flex-col">

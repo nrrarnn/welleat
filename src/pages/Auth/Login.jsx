@@ -52,7 +52,7 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            navigate("/daftar-product");
+            navigate("/homepage-user");
           }
         });
       } else {
