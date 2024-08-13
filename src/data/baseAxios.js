@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../store/store";
+
 const state = store.getState(); // Get the current state
 const token = state.auth.token;
 

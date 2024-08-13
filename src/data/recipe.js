@@ -55,7 +55,7 @@ export async function editRecipe(newRecipe, id) {
 
     return responseRecipe.data;
   } catch (error) {
-    console.error("Error posting Recipe:", error);
+    console.error("Error edit Recipe:", error);
     throw error;
   }
 }

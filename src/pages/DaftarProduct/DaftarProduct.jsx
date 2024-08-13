@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import RecipeCard from "../../components/RecipeCard";
 import { useNavigate } from "react-router-dom";
 import withAuth from "../../hoc/withAuth";
@@ -25,10 +23,8 @@ const DaftarProduct = ({ token }) => {
 
   useEffect(() => {
     if (!token) {
-      
       navigate("/login");
     } else {
-      
       getRecipes();
     }
   }, [token]);
@@ -58,7 +54,6 @@ const DaftarProduct = ({ token }) => {
 
   return (
     <>
-      <Header />
       <SearchForm onSearch={handleSearch} />
       <div className=" px-20">
         <div>
@@ -70,10 +65,12 @@ const DaftarProduct = ({ token }) => {
           {view === "list" &&
             (listRecipes.length > 0 ? (
               listRecipes.map((recipe, index) => (
-                <RecipeCard key={index}
+                <RecipeCard
+                  key={index}
                   name={recipe.recipeName}
                   image={recipe.image}
-                  id={recipe._id} />
+                  id={recipe._id}
+                />
               ))
             ) : (
               <NoDataDisplay />
@@ -94,8 +91,6 @@ const DaftarProduct = ({ token }) => {
             ))}
         </div>
       </div>
-
-      <Footer />
     </>
   );
 };

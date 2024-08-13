@@ -14,9 +14,6 @@ const HomePageUser = () => {
       <section>
         <Footer />
       </section>
-      {/* <section>
-        <UserCard />
-      </section> */}
     </>
   );
 };

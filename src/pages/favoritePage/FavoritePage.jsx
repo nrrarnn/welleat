@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/Footer";
-// import NavbarUser from "../../pages/userPage/NavbarUser";
+
 import RecipeCard from "../../components/RecipeCard";
 import { getFavByUserId } from "../../data/favorite";
 import { Spinner } from "@nextui-org/react";
@@ -10,16 +9,19 @@ import Header from "../../components/Header";
 import axios from "axios";
 import withAuth from "../../hoc/withAuth";
 
-function FavoritePage({token, dataUser }) {
+function FavoritePage({ token, dataUser }) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const idUser = dataUser.id
+  const idUser = dataUser.id;
 
-  const getFavoriteRecipe =  async () => {
+  const getFavoriteRecipe = async () => {
     try {
-      const response = await axios.get(`https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`, {
-        headers: { Authorization: `Bearer ${token}` } // Include token for authorization
-      });
+      const response = await axios.get(
+        `https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }, // Include token for authorization
+        }
+      );
       // Update the state with fetched recipes
       setRecipes(response.data); // Adjust according to the actual response structure
     } catch (error) {
@@ -44,7 +46,6 @@ function FavoritePage({token, dataUser }) {
 
   return (
     <>
-      <Header />
       <div className="flex justify-center items-center py-3 px-20">
         <div className="flex  border-2 p-2 rounded-xl bg-slate-50">
           <div className="flex-col">
@@ -53,15 +54,19 @@ function FavoritePage({token, dataUser }) {
             </h2>
             <div className="flex flex-wrap justify-center items-center">
               {recipes.map((recipe) => (
-                <RecipeCard key={recipe.recipesId._id} name={recipe.recipesId.recipeName} id={recipe.recipesId._id} image={recipe.recipesId.image} />
+                <RecipeCard
+                  key={recipe.recipesId._id}
+                  name={recipe.recipesId.recipeName}
+                  id={recipe.recipesId._id}
+                  image={recipe.recipesId.image}
+                />
               ))}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
 
-export default withAuth(FavoritePage)
+export default withAuth(FavoritePage);

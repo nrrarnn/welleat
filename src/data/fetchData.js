@@ -3,7 +3,6 @@ export const fetchData = (setData, setLoad, getData) => {
     const getResult = async () => {
       const data = await getData();
 
-      console.log("🚀 ~ getResult ~ data:", data);
       setData(data.data);
     };
     getResult();
@@ -24,5 +23,28 @@ export const postData = (setLoad, sendData) => {
   } catch (error) {
     console.log(error);
     setLoad(false);
+  }
+};
+
+export const postingData = (sendData) => {
+  try {
+    const postResult = async () => {
+      await sendData();
+    };
+    postResult();
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchingData = (setData, getData) => {
+  try {
+    const getResult = async () => {
+      const data = await getData();
+
+      setData(data.data);
+    };
+    getResult();
+  } catch (error) {
+    console.log(error);
   }
 };

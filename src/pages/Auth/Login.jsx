@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [loginState, setLoginState] = useState({
     email: "",
     password: "",
@@ -22,42 +22,29 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://api-resep-three.vercel.app/api/v1/auth/login", {
-          "email" : loginState.email,
-          "password": loginState.password
+        "https://api-resep-three.vercel.app/api/v1/auth/login",
+        {
+          email: loginState.email,
+          password: loginState.password,
         }
       );
       const token = response.data.token;
       const role = response.data.user.role;
-      const username = response.data.user.username;
       const status = response.data.status;
-      const userid = response.data.user.id
-
-      console.log(token)
-      console.log(username)
-      console.log(role)
-      console.log(userid)
-
-      
+      const user = response.data.user;
+      console.log("🚀 ~ handleLogin ~ user:", user);
 
       if (status === "success") {
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("dataUser", username);
-        localStorage.setItem("userId", userid);
-         dispatch({
-          type: 'LOGIN',
-          payload : token
-        })
+        Cookies.set("authToken", token);
+        Cookies.set("dataUser", JSON.stringify(user));
         dispatch({
-          type: 'MASUK',
-          payload: username
+          type: "LOGIN",
+          payload: token,
         });
         dispatch({
-          type: 'MASUKID',
-          payload: userid
+          type: "MASUK",
+          payload: JSON.stringify(user),
         });
-        
-        
 
         Swal.fire({
           title: "Confirmation",
@@ -67,12 +54,11 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            if(role === 'admin'){
+            if (role === "admin") {
               navigate("/dashboard-admin");
-            } else if(role === 'user'){
-              navigate("/homepage-user")
+            } else if (role === "user") {
+              navigate("/homepage-user");
             }
-            
           }
         });
       } else {
@@ -126,8 +112,6 @@ const Login = () => {
       });
     }
   };
-
-  
 
   return (
     <>

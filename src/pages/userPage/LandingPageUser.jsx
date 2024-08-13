@@ -1,11 +1,9 @@
-import { FaAppleAlt, FaHeart, FaCarrot } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaAppleAlt, FaHeart, FaCarrot } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function LandingPageUser() {
   return (
     <div>
-
-
       <section className="bg-white text-gray-900">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
           <div className="mx-auto max-w-lg text-center">
@@ -21,9 +19,12 @@ function LandingPageUser() {
               to="/daftar-product"
             >
               <FaAppleAlt className="size-10 text-green-500" size={40} />
-              <h2 className="mt-4 text-xl font-bold text-gray">Daftar Product</h2>
+              <h2 className="mt-4 text-xl font-bold text-gray">
+                Daftar Product
+              </h2>
               <p className="mt-1 text-sm text-gray">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis, ab!
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Facilis, ab!
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
             </Link>
@@ -35,7 +36,8 @@ function LandingPageUser() {
               <FaHeart className="size-10 text-red-500" size={40} />
               <h2 className="mt-4 text-xl font-bold text-gray">Favorite</h2>
               <p className="mt-1 text-sm text-gray">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nostrum?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni,
+                nostrum?
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
             </Link>
@@ -45,13 +47,15 @@ function LandingPageUser() {
               href="/detail-recipe/:id"
             >
               <FaCarrot className="size-10 text-orange-500" size={40} />
-              <h2 className="mt-4 text-xl font-bold text-gray">Detail Product</h2>
+              <h2 className="mt-4 text-xl font-bold text-gray">
+                Detail Product
+              </h2>
               <p className="mt-1 text-sm text-gray">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto, blanditiis.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Architecto, blanditiis.
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
             </a>
-            
           </div>
 
           <div className="mt-12 text-center">
@@ -65,7 +69,7 @@ function LandingPageUser() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 export default LandingPageUser;
