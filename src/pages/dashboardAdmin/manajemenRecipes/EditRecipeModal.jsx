@@ -13,12 +13,12 @@ import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import Swal from "sweetalert2";
+import { editRecipe } from "../../../data/recipe";
 
 const recipeSchema = z.object({
-	name: z.string().min(1, { message: "Name is required" }),
-	bahan: z.string().min(1, { message: "Bahan is required" }),
+	recipeName: z.string().min(1, { message: "Name is required" }),
+	ingredient: z.string().min(1, { message: "Bahan is required" }),
 	step: z.string().min(1, { message: "Step is required" }),
 	image: z.string().min(1, { message: "Image is required" }),
 });
@@ -27,8 +27,8 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 	const { control, handleSubmit, reset } = useForm({
 		resolver: zodResolver(recipeSchema),
 		defaultValues: {
-			name: "",
-			bahan: "",
+			recipeName: "",
+			ingredient: "",
 			step: "",
 			image: "",
 		},
@@ -37,9 +37,9 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 	useEffect(() => {
 		if (recipe) {
 			reset({
-				name: recipe.name,
-				bahan: recipe.bahan,
-				step: recipe.step,
+				recipeName: recipe.recipeName,
+				ingredient: recipe.ingredient.join("\n"),
+				step: recipe.step.join("\n"),
 				image: recipe.image,
 			});
 		}
@@ -47,16 +47,13 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 
 	const updateRecipe = async (data) => {
 		try {
-			const payload = {
-				name: data.name,
-				bahan: data.bahan,
-				step: data.step,
+			const newRecipe = {
+				recipeName: data.recipeName,
+				ingredient: data.ingredient.split("\n").filter(Boolean),
+				step: data.step.split("\n").filter(Boolean),
 				image: data.image,
 			};
-			await axios.put(
-				`https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist/${recipe.id}`,
-				payload
-			);
+			await editRecipe(newRecipe, recipe._id);
 			Swal.fire({
 				icon: "success",
 				title: "Recipe updated successfully!",
@@ -84,7 +81,7 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 					<form onSubmit={handleSubmit(updateRecipe)}>
 						<ModalBody>
 							<Controller
-								name="name"
+								name="recipeName"
 								control={control}
 								render={({ field, fieldState }) => (
 									<Input
@@ -97,7 +94,7 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 								)}
 							/>
 							<Controller
-								name="bahan"
+								name="ingredient"
 								control={control}
 								render={({ field, fieldState }) => (
 									<Textarea
@@ -164,6 +161,6 @@ export default EditRecipeModal;
 EditRecipeModal.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	recipe: PropTypes.object.isRequired,
+	recipe: PropTypes.object,
 	onRecipeUpdated: PropTypes.func.isRequired,
 };

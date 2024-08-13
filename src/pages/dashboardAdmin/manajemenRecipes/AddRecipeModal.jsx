@@ -12,22 +12,25 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import Swal from "sweetalert2";
+import { createRecipe } from "../../../data/recipe";
 
 const recipeSchema = z.object({
-	name: z.string().min(1, { message: "Name is required" }),
-	bahan: z.string().min(1, { message: "Bahan is required" }),
+	recipeName: z.string().min(1, { message: "Name is required" }),
+	ingredient: z.string().min(1, { message: "Ingredients are required" }),
 	step: z.string().min(1, { message: "Step is required" }),
-	image: z.string().min(1, { message: "Image is required" }),
+	image: z
+		.string()
+		.url({ message: "Image must be a valid URL" })
+		.min(1, { message: "Image is required" }),
 });
 
 const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 	const { control, handleSubmit, reset } = useForm({
 		resolver: zodResolver(recipeSchema),
 		defaultValues: {
-			name: "",
-			bahan: "",
+			recipeName: "",
+			ingredient: "",
 			step: "",
 			image: "",
 		},
@@ -35,22 +38,19 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 
 	const createResep = async (data) => {
 		try {
-			const payload = {
-				name: data.name,
-				bahan: data.bahan,
-				step: data.step,
+			const newRecipe = {
+				recipeName: data.recipeName,
+				ingredient: data.ingredient.split("\n"),
+				step: data.step.split("\n"),
 				image: data.image,
 			};
-			await axios.post(
-				"https://66b8371e3ce57325ac76a51a.mockapi.io/api/v1/recipelist",
-				payload
-			);
+			await createRecipe(newRecipe);
 			Swal.fire({
 				icon: "success",
 				title: "Recipe added successfully!",
 				text: "Your recipe has been saved.",
 			});
-			onRecipeCreated(); // Call the function to refresh the data
+			onRecipeCreated();
 		} catch (error) {
 			console.error(error);
 			Swal.fire({
@@ -72,7 +72,7 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 					<form onSubmit={handleSubmit(createResep)}>
 						<ModalBody>
 							<Controller
-								name="name"
+								name="recipeName"
 								control={control}
 								render={({ field, fieldState }) => (
 									<Input
@@ -85,7 +85,7 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 								)}
 							/>
 							<Controller
-								name="bahan"
+								name="ingredient"
 								control={control}
 								render={({ field, fieldState }) => (
 									<Textarea
@@ -152,5 +152,5 @@ export default AddRecipeModal;
 AddRecipeModal.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	onRecipeCreated: PropTypes.func.isRequired, // Define the prop type for onRecipeCreated
+	onRecipeCreated: PropTypes.func.isRequired,
 };
