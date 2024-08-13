@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+// import NavbarUser from "../../pages/userPage/NavbarUser";
 import RecipeCard from "../../components/RecipeCard";
 import { getFavByUserId } from "../../data/favorite";
 import { Spinner } from "@nextui-org/react";
 import { fetchData } from "../../data/baseAxios";
 import { useSelector } from "react-redux";
+import Header from "../../components/Header";
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
@@ -26,7 +27,7 @@ export default function FavoritePage() {
 
   return (
     <>
-      <NavbarUser />
+      <Header />
       <div className="flex justify-center items-center py-3 px-20">
         <div className="flex  border-2 p-2 rounded-xl bg-slate-50">
           <div className="flex-col">
