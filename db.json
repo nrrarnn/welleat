@@ -88,7 +88,6 @@
       "email": "baba123@gmail.com",
       "phoneNumber": "0878783131",
       "roleId": 0,
-
       "id": "7"
     },
     {
@@ -133,8 +132,14 @@
     }
   ],
   "roles": [
-    { "id": 0, "name": "admin" },
-    { "id": 1, "name": "member" }
+    {
+      "id": "0",
+      "name": "admin"
+    },
+    {
+      "id": "1",
+      "name": "member"
+    }
   ],
   "comments": [
     {
@@ -142,19 +147,135 @@
       "userId": "1",
       "content": "kero",
       "id": "14",
-      "recipeId": "6"
+      "recipeId": "1"
     },
     {
       "createdAt": "2024-08-12T07:03:58.903Z",
       "userId": "2",
       "content": "mantapp",
       "id": "16",
-      "recipeId": "6"
+      "recipeId": "1"
+    },
+    {
+      "id": "9427",
+      "request": {
+        "signal": {},
+        "payload": {
+          "recipeId": "1",
+          "content": "awa",
+          "id": "17",
+          "createdAt": "2024-08-12T21:06:57.275Z"
+        }
+      }
+    },
+    {
+      "id": "4ecb",
+      "request": {
+        "signal": {},
+        "payload": {
+          "recipeId": "1",
+          "content": "awa",
+          "id": "9428",
+          "createdAt": "2024-08-12T21:07:18.873Z"
+        }
+      }
+    },
+    {
+      "id": "44a9",
+      "request": {
+        "signal": {},
+        "payload": {
+          "recipeId": "1",
+          "content": "aww",
+          "id": "NaN",
+          "createdAt": "2024-08-12T21:07:30.634Z"
+        }
+      }
+    },
+    {
+      "id": "cf85",
+      "request": {
+        "signal": {},
+        "payload": {
+          "recipeId": "1",
+          "content": "awa",
+          "id": "NaN",
+          "createdAt": "2024-08-12T21:09:16.474Z"
+        }
+      }
+    },
+    {
+      "id": "1725",
+      "request": {
+        "signal": {},
+        "payload": {
+          "recipeId": "1",
+          "content": "awa",
+          "id": "NaN",
+          "createdAt": "2024-08-12T21:10:07.009Z"
+        }
+      }
+    },
+    {
+      "id": "NaN",
+      "recipeId": "1",
+      "content": "awa",
+      "createdAt": "2024-08-12T21:15:39.419Z"
+    },
+    {
+      "id": "3ded",
+      "recipeId": "1",
+      "content": "ok oke",
+      "createdAt": "2024-08-12T21:17:08.134Z"
+    },
+    {
+      "id": "d431",
+      "recipeId": "1",
+      "content": "cek",
+      "createdAt": "2024-08-12T21:21:11.447Z"
+    },
+    {
+      "id": "ee68",
+      "recipeId": "1",
+      "content": "wadaw",
+      "createdAt": "2024-08-12T21:22:18.269Z"
+    },
+    {
+      "id": "d4f5",
+      "recipeId": "1",
+      "content": "hmhm",
+      "createdAt": "2024-08-12T21:25:33.151Z"
+    },
+    {
+      "id": "0b86",
+      "recipeId": "1",
+      "content": "aduuh",
+      "createdAt": "2024-08-12T21:26:01.834Z"
+    },
+    {
+      "id": "6eeb",
+      "recipeId": "1",
+      "content": "nomber wan",
+      "createdAt": "2024-08-13T00:55:36.204Z"
+    },
+    {
+      "id": "564c",
+      "recipeId": "2",
+      "content": "belum ada komen kah?",
+      "createdAt": "2024-08-13T00:55:55.064Z"
     }
   ],
   "favorite": [
-    { "id": "1", "userId": "1", "recipeId": "1" },
-    { "id": "2", "userId": "2", "recipeId": "2" }
+    {
+      "id": "1",
+      "userId": "1",
+      "recipeId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "recipeId": "2"
+    }
   ],
   "recipes": [
     {
@@ -185,12 +306,11 @@
         "Let the cake cool before slicing.",
         "Serve and enjoy!"
       ],
-
       "id": "1"
     },
     {
       "createdAt": "2024-08-12T05:13:35.042Z",
-      "name": "Refined Plastic Keyboard",
+      "name": "Laba laba sunda",
       "image": "https://loremflickr.com/640/480/food",
       "ingredient": [
         "3 cups of diced tomatoes",
@@ -216,12 +336,11 @@
         "Garnish with fresh parsley before serving.",
         "Serve hot with crusty bread."
       ],
-
       "id": "2"
     },
     {
       "createdAt": "2024-08-11T21:19:09.650Z",
-      "name": "Awesome Granite Shirt",
+      "name": "Laba laba jawir",
       "image": "https://loremflickr.com/640/480/food",
       "ingredient": [
         "2 chicken breasts, boneless and skinless",

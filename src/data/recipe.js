@@ -8,19 +8,14 @@ export async function getRecipes() {
   return response.data;
 }
 
-export async function getRecipe(recipeId) {
-  const response = await baseApi.get(`/recipes/${recipeId}`, {
+export async function getRecipe(id) {
+  const response = await baseApi.get(`/recipes/${id}`, {
     request: { signal: new AbortController().signal },
   });
+
   return response.data;
 }
 
-export async function getFavorite() {
-  const response = await baseApi.get(`/favorite`, {
-    request: { signal: new AbortController().signal },
-  });
-  return response.data;
-}
 // export function loaderRecipes({ request: { signal } }) {
 //   return getRecipes({ signal });
 // }
