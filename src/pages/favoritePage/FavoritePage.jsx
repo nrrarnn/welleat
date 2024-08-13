@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import RecipeCard from "./RecipeCard";
 import { getRecipes } from "../data/recipe";
+import NavbarUser from "../userPage/NavbarUser";
 
 export default function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
@@ -19,7 +20,7 @@ export default function FavoritePage() {
 
   return (
     <>
-      <Header />
+      <NavbarUser />
       <div className="flex justify-center items-center py-3 px-20">
         <div className="flex  border-2 p-2 rounded-xl bg-slate-50">
           <div className="flex-col">

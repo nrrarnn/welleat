@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { BiArrowBack } from "react-icons/bi";
 import axios from "axios";
+import NavbarUser from "../userPage/NavbarUser"
 
 const DetailRecipe = () => {
 	const { id } = useParams();
@@ -52,7 +53,7 @@ const DetailRecipe = () => {
 
 	return (
 		<>
-			<Header />
+			<NavbarUser />
 			<div className="pt-24 sm:pt-20 px-4 py-12 sm:p-8 lg:p-28 font-poppins">
 				<div className="hidden sm:flex justify-between items-center mb-8 bg-blue-100 rounded-full">
 					<Button radius="full" className="bg-sky-500 w-12 h-12">

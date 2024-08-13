@@ -45,7 +45,7 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            navigate("/user");
+            navigate("/homepage-user");
           }
         });
       } else {
