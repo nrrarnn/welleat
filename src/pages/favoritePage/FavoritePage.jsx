@@ -19,16 +19,16 @@ function FavoritePage({ token, dataUser }) {
       const response = await axios.get(
         `https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`,
         {
-          headers: { Authorization: `Bearer ${token}` }, // Include token for authorization
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Update the state with fetched recipes
-      setRecipes(response.data); // Adjust according to the actual response structure
+      
+      setRecipes(response.data); 
     } catch (error) {
       console.error("Error fetching favorite recipes:", error);
-      // Handle error, e.g., show an error message
+     
     } finally {
-      setLoading(false); // Set loading to false once data is fetched
+      setLoading(false); 
     }
   };
 

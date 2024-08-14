@@ -56,7 +56,10 @@ export default function RecipeCard({ name, image, id }) {
           confirmButtonColor: "rgb(3 150 199)"})
           setIsRead(true)
       } else { 
-        const response = await axios.delete(`https://api-resep-three.vercel.app/api/v1/removeFavorite`,config);
+        const response = await axios.delete(`https://api-resep-three.vercel.app/api/v1/removeFavorite`,{
+          headers: { Authorization: `Bearer ${token}` },
+          data: { userId, recipesId: id } 
+        });
         console.log(response.data.message);
         Swal.fire({
           title: "Delete Success",

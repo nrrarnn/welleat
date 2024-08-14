@@ -36,8 +36,8 @@ const Register = () => {
         "https://api-resep-three.vercel.app/api/v1/auth/register",
         {
           username: registerState.username,
-          password: registerState.password,
           email: registerState.email,
+          password: registerState.password,
         }
       );
       if (response) {
