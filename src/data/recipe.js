@@ -16,20 +16,14 @@ export async function getRecipe(id) {
   return response.data;
 }
 
-export async function createRecipe(newRecipe) {
+export async function createRecipe(formData) {
   try {
-    const responseRecipe = await baseApi.post(
-      `/resep`,
-      {
-        recipeName: newRecipe.recipeName,
-        ingredient: newRecipe.ingredient,
-        step: newRecipe.step,
-        image: newRecipe.image,
+    const responseRecipe = await baseApi.post(`/resep`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
-      {
-        signal: new AbortController().signal,
-      }
-    );
+      signal: new AbortController().signal,
+    });
 
     return responseRecipe.data;
   } catch (error) {
@@ -38,24 +32,18 @@ export async function createRecipe(newRecipe) {
   }
 }
 
-export async function editRecipe(newRecipe, id) {
+export async function editRecipe(id, formData) {
   try {
-    const responseRecipe = await baseApi.put(
-      `/resep/${id}`,
-      {
-        recipeName: newRecipe.recipeName,
-        ingredient: newRecipe.ingredient,
-        step: newRecipe.step,
-        image: newRecipe.image,
+    const responseRecipe = await baseApi.put(`/resep/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
-      {
-        signal: new AbortController().signal,
-      }
-    );
+      signal: new AbortController().signal,
+    });
 
     return responseRecipe.data;
   } catch (error) {
-    console.error("Error edit Recipe:", error);
+    console.error("Error updating Recipe:", error);
     throw error;
   }
 }

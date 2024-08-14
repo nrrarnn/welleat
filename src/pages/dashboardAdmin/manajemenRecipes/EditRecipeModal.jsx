@@ -10,7 +10,7 @@ import {
 	Textarea,
 } from "@nextui-org/react";
 import { useForm, Controller } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Swal from "sweetalert2";
@@ -18,21 +18,23 @@ import { editRecipe } from "../../../data/recipe";
 
 const recipeSchema = z.object({
 	recipeName: z.string().min(1, { message: "Name is required" }),
-	ingredient: z.string().min(1, { message: "Bahan is required" }),
-	step: z.string().min(1, { message: "Step is required" }),
-	image: z.string().min(1, { message: "Image is required" }),
+	ingredient: z.string().min(1, { message: "Ingredients are required" }),
+	step: z.string().min(1, { message: "Steps are required" }),
 });
 
 const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
-	const { control, handleSubmit, reset } = useForm({
+	const [isLoading, setIsLoading] = useState(false);
+	const { control, handleSubmit, reset, setValue, watch } = useForm({
 		resolver: zodResolver(recipeSchema),
 		defaultValues: {
 			recipeName: "",
 			ingredient: "",
 			step: "",
-			image: "",
+			image: null,
 		},
 	});
+
+	const imageFile = watch("image");
 
 	useEffect(() => {
 		if (recipe) {
@@ -40,20 +42,28 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 				recipeName: recipe.recipeName,
 				ingredient: recipe.ingredient.join("\n"),
 				step: recipe.step.join("\n"),
-				image: recipe.image,
+				image: null,
 			});
 		}
 	}, [recipe, reset]);
 
 	const updateRecipe = async (data) => {
+		setIsLoading(true);
 		try {
-			const newRecipe = {
-				recipeName: data.recipeName,
-				ingredient: data.ingredient.split("\n").filter(Boolean),
-				step: data.step.split("\n").filter(Boolean),
-				image: data.image,
-			};
-			await editRecipe(newRecipe, recipe._id);
+			const formData = new FormData();
+			formData.append("recipeName", data.recipeName);
+			formData.append(
+				"ingredient",
+				data.ingredient.split("\n").filter(Boolean).join(",")
+			);
+			formData.append("step", data.step.split("\n").filter(Boolean).join(","));
+
+			// Periksa jika file gambar ada dan tambahkan ke FormData
+			if (imageFile && imageFile[0]) {
+				formData.append("image", imageFile[0]);
+			}
+
+			await editRecipe(recipe._id, formData);
 			Swal.fire({
 				icon: "success",
 				title: "Recipe updated successfully!",
@@ -65,9 +75,10 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Something went wrong! Please try again.",
+				text: error.message || "Something went wrong! Please try again.",
 			});
 		} finally {
+			setIsLoading(false);
 			onClose();
 			reset();
 		}
@@ -119,20 +130,28 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 									/>
 								)}
 							/>
-							<Controller
-								name="image"
-								control={control}
-								render={({ field, fieldState }) => (
-									<Input
-										{...field}
-										label="Image Link"
-										fullWidth
-										description="Please enter a valid image URL (e.g., https://example.com/image.jpg)."
-										isInvalid={!!fieldState.error}
-										errorMessage={fieldState.error?.message}
-									/>
+							<div className="space-y-10">
+								{recipe?.image && (
+									<div className="mb-4">
+										<p>Gambar saat ini</p>
+										<img
+											src={recipe.image}
+											alt={recipe.recipeName}
+											className="w-28 h-auto rounded-lg"
+										/>
+									</div>
 								)}
-							/>
+								<Input
+									label="Upload Image"
+									type="file"
+									id="image"
+									accept="image/*"
+									onChange={(e) => {
+										setValue("image", e.target.files);
+									}}
+									className="mt-1 block w-full"
+								/>
+							</div>
 						</ModalBody>
 						<ModalFooter>
 							<Button
@@ -142,11 +161,12 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 									onClose();
 									reset();
 								}}
+								disabled={isLoading}
 							>
 								Close
 							</Button>
 							<Button color="primary" type="submit">
-								Save Changes
+								{isLoading ? "Saving..." : "Save"}
 							</Button>
 						</ModalFooter>
 					</form>
@@ -156,11 +176,11 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 	);
 };
 
-export default EditRecipeModal;
-
 EditRecipeModal.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	recipe: PropTypes.object,
+	recipe: PropTypes.object.isRequired,
 	onRecipeUpdated: PropTypes.func.isRequired,
 };
+
+export default EditRecipeModal;

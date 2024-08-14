@@ -14,37 +14,43 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Swal from "sweetalert2";
 import { createRecipe } from "../../../data/recipe";
+import { useState } from "react";
 
 const recipeSchema = z.object({
 	recipeName: z.string().min(1, { message: "Name is required" }),
 	ingredient: z.string().min(1, { message: "Ingredients are required" }),
 	step: z.string().min(1, { message: "Step is required" }),
-	image: z
-		.string()
-		.url({ message: "Image must be a valid URL" })
-		.min(1, { message: "Image is required" }),
 });
 
 const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
-	const { control, handleSubmit, reset } = useForm({
+	const [isLoading, setIsLoading] = useState(false);
+	const { control, handleSubmit, reset, setValue, watch } = useForm({
 		resolver: zodResolver(recipeSchema),
 		defaultValues: {
 			recipeName: "",
 			ingredient: "",
 			step: "",
-			image: "",
+			image: null,
 		},
 	});
 
+	const imageFile = watch("image");
+
 	const createResep = async (data) => {
+		setIsLoading(true);
 		try {
-			const newRecipe = {
-				recipeName: data.recipeName,
-				ingredient: data.ingredient.split("\n"),
-				step: data.step.split("\n"),
-				image: data.image,
-			};
-			await createRecipe(newRecipe);
+			const formData = new FormData();
+			formData.append("recipeName", data.recipeName);
+			formData.append("ingredient", data.ingredient.split("\n").join(","));
+			formData.append("step", data.step.split("\n").join(","));
+
+			if (imageFile && imageFile[0]) {
+				formData.append("image", imageFile[0]);
+			} else {
+				throw new Error("No image file selected");
+			}
+
+			await createRecipe(formData);
 			Swal.fire({
 				icon: "success",
 				title: "Recipe added successfully!",
@@ -56,9 +62,10 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Something went wrong! Please try again.",
+				text: error.message || "Something went wrong! Please try again.",
 			});
 		} finally {
+			setIsLoading(false);
 			onClose();
 			reset();
 		}
@@ -110,20 +117,18 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 									/>
 								)}
 							/>
-							<Controller
-								name="image"
-								control={control}
-								render={({ field, fieldState }) => (
-									<Input
-										{...field}
-										label="Image Link"
-										fullWidth
-										description="Please enter a valid image URL (e.g., https://example.com/image.jpg)."
-										isInvalid={!!fieldState.error}
-										errorMessage={fieldState.error?.message}
-									/>
-								)}
-							/>
+							<div className="mt-4">
+								<Input
+									label="Upload Image"
+									type="file"
+									id="image"
+									accept="image/*"
+									onChange={(e) => {
+										setValue("image", e.target.files);
+									}}
+									className="mt-1 block w-full"
+								/>
+							</div>
 						</ModalBody>
 						<ModalFooter>
 							<Button
@@ -133,11 +138,12 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 									onClose();
 									reset();
 								}}
+								disabled={isLoading}
 							>
 								Close
 							</Button>
-							<Button color="primary" type="submit">
-								Add
+							<Button color="primary" type="submit" disabled={isLoading}>
+								{isLoading ? "Adding..." : "Add"}
 							</Button>
 						</ModalFooter>
 					</form>
@@ -147,10 +153,10 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 	);
 };
 
-export default AddRecipeModal;
-
 AddRecipeModal.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
 	onRecipeCreated: PropTypes.func.isRequired,
 };
+
+export default AddRecipeModal;
