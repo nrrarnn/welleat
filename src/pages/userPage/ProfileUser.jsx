@@ -1,8 +1,29 @@
-import React from 'react'
-import { FaUserCircle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
+import { Link, useParams } from 'react-router-dom';
+// belum diimport
 
 function ProfileUser() {
+  const [user, setUser] = useState(null);
+  const { id } = useParams(); 
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await getUserById(id);
+        setUser(userData);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchUser();
+  }, [id]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg border border-gray-200">
@@ -24,7 +45,7 @@ function ProfileUser() {
                 Full name
               </dt>
               <dd className="mt-1 text-sm text-gray-900">
-                John Doe
+                {user.fullName}
               </dd>
             </div>
             <div className="px-6 py-4">
@@ -32,7 +53,7 @@ function ProfileUser() {
                 Email address
               </dt>
               <dd className="mt-1 text-sm text-gray-900">
-                johndoe@example.com
+                {user.email}
               </dd>
             </div>
             <div className="px-6 py-4">
@@ -40,7 +61,7 @@ function ProfileUser() {
                 Phone number
               </dt>
               <dd className="mt-1 text-sm text-gray-900">
-                (123) 456-7890
+                {user.phoneNumber}
               </dd>
             </div>
             <div className="px-6 py-4">
@@ -48,8 +69,7 @@ function ProfileUser() {
                 Address
               </dt>
               <dd className="mt-1 text-sm text-gray-900">
-                123 Main St<br />
-                Anytown, USA 12345
+                {user.address}
               </dd>
             </div>
           </dl>
@@ -64,7 +84,7 @@ function ProfileUser() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ProfileUser
+export default ProfileUser;

@@ -1,17 +1,21 @@
-import NavbarUser from "./NavbarUser";
 import LandingPageUser from "./LandingPageUser";
-import Footer from "../../components/Footer";
-import AboutUs from "../../pages/homepage/AboutUs";
-import Testimonials from "../../pages/homepage/Testimonials";
-import WhyWellEat from "../homepage/WhyWellEat";
 import ChatWhatsApp from "./ChatWhatsApp"
+import Footer from "../../components/Footer";
+import Header from "../../components/Header"
+import NavbarUser from "./NavbarUser"
+import AboutUs from "../../pages/homepage/AboutUs"
+import WhyWellEat from "../../pages/homepage/WhyWellEat"
+import Testimonials from "../../pages/homepage/Testimonials"
+import ProfileUser from "./ProfileUser"
+
+
 
 
 const HomePageUser = () => {
   return (
     <>
       <section>
-        <NavbarUser />
+        <Header />
       </section>
       <section>
         <LandingPageUser />
@@ -31,7 +35,6 @@ const HomePageUser = () => {
       <section>
         <Footer />
       </section>
-
       {/* <section>
         <UserCard />
       </section> */}

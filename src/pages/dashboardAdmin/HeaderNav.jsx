@@ -1,0 +1,67 @@
+import {
+	Button,
+	Navbar,
+	NavbarContent,
+	NavbarMenuToggle,
+} from "@nextui-org/react";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+
+const HeaderNav = ({ handleExpandedSidebar }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		Cookies.remove("authToken");
+		Cookies.remove("dataUser");
+		dispatch({ type: "LOGOUT" });
+		dispatch({ type: "KELUAR" });
+		navigate("/");
+	};
+
+	const onLogout = () => {
+		Swal.fire({
+			title: "Apakah kamu yakin?",
+			text: "Kamu ingin keluar?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes",
+			cancelButtonText: "No",
+			customClass: {
+				container: "swal-container",
+				popup: "swal-popup",
+				title: "swal-title",
+				content: "swal-content",
+				confirmButton: "swal-confirm",
+				cancelButton: "swal-cancel",
+			},
+		}).then((result) => {
+			if (result.isConfirmed) {
+				handleLogout();
+			}
+		});
+	};
+	return (
+		<>
+			<Navbar className="shadow-md py-2">
+				<NavbarContent>
+					<NavbarMenuToggle onClick={handleExpandedSidebar} />
+				</NavbarContent>
+				<NavbarContent as="div" justify="end">
+					<Button color="danger" variant="flat" onClick={onLogout}>
+						Logout
+					</Button>
+				</NavbarContent>
+			</Navbar>
+		</>
+	);
+};
+
+export default HeaderNav;
+
+HeaderNav.propTypes = {
+  handleExpandedSidebar: PropTypes.func,
+};

@@ -8,16 +8,16 @@ function ChatWa() {
     setIsOpen(!isOpen);
   };
 
-  // Pesan yang akan dikirimkan
+  
   const message =
     "Halo, saya tertarik untuk mendapatkan informasi lebih lanjut!";
 
-  // Encode pesan untuk URL
+  
   const encodedMessage = encodeURIComponent(message);
 
   return (
     <div className="relative">
-      {/* Ikon WhatsApp */}
+     
       <button
         onClick={togglePopup}
         className="fixed bottom-4 right-4 p-3 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition"
@@ -25,13 +25,13 @@ function ChatWa() {
         <FaWhatsapp size={30} />
       </button>
 
-      {/* Popup */}
+     
       {isOpen && (
         <div className="fixed bottom-16 right-4 p-4 bg-white border rounded shadow-lg">
           <h2 className="text-lg font-semibold">Mari saling sharing!</h2>
           <p className="mt-2">.</p>
           <a
-            href={`https://wa.me/82361140757?text=${encodedMessage}`} // URL dengan pesan otomatis
+            href={`https://wa.me/81479123851?text=${encodedMessage}`} 
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"

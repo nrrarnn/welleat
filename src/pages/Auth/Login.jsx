@@ -1,11 +1,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginState, setLoginState] = useState({
     email: "",
     password: "",
@@ -19,23 +20,31 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(
-        "https://66b84cbf3ce57325ac76d207.mockapi.io/users/users"
+      const response = await axios.post(
+        "https://api-resep-three.vercel.app/api/v1/auth/login",
+        {
+          email: loginState.email,
+          password: loginState.password,
+        }
       );
+      const token = response.data.token;
+      const role = response.data.user.role;
+      const status = response.data.status;
+      const user = response.data.user;
+      console.log("🚀 ~ handleLogin ~ user:", user);
 
-      const user = response.data.find(
-        (u) =>
-          u.email === loginState.email && u.password === loginState.password
-      );
+      if (status === "success") {
+        localStorage.setItem("authToken", JSON.stringify(token));
+        localStorage.setItem("dataUser", JSON.stringify(user));
 
-      if (user) {
-        const token = user.id;
-        const getToken = generateToken(token);
-
-        console.log("User:", user);
-        console.log("Generated Token:", getToken);
-
-        Cookies.set("authToken", getToken);
+        dispatch({
+          type: "LOGIN",
+          payload: JSON.stringify(token),
+        });
+        dispatch({
+          type: "MASUK",
+          payload: JSON.stringify(user),
+        });
 
         Swal.fire({
           title: "Confirmation",
@@ -45,7 +54,11 @@ const Login = () => {
           confirmButtonColor: "rgb(3 150 199)",
         }).then((res) => {
           if (res.isConfirmed) {
-            navigate("/homepage-user");
+            if (role === "admin") {
+              navigate("/dashboard-admin");
+            } else if (role === "user") {
+              navigate("/homepage-user");
+            }
           }
         });
       } else {
@@ -100,10 +113,6 @@ const Login = () => {
     }
   };
 
-  const generateToken = (user) => {
-    return `${user}${new Date().getTime()}`;
-  };
-
   return (
     <>
       <div
@@ -118,7 +127,7 @@ const Login = () => {
             className="text-lg lg:text-3xl font-bold text-[#0396C7]"
             id="logo"
           >
-            StoreID
+            WELLEAT
           </span>
           <span
             onClick={toRegister}

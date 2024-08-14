@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Avatar } from "@nextui-org/react";
 
+
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -29,20 +30,7 @@ const Header = () => {
         </h1>
       </div>
       <div className="flex">
-        {/* <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
-          <li className="hover:text-sky-500">
-            <a href="/">Beranda</a>
-          </li>
-          <li className="hover:text-sky-500">
-            <a href="/daftar-product">Daftar Product</a>
-          </li>
-          <li className="hover:text-sky-500">
-            <a href="/detail-recipe">Detail Product</a>
-          </li>
-          <li className="hover:text-sky-500">
-            <a href="/favorite">Favorite</a>
-          </li>
-        </ul> */}
+        
       </div>
       <div className="relative flex items-center gap-4">
         <Avatar
@@ -61,7 +49,7 @@ const Header = () => {
             <ul className="py-1">
               <li>
                 <a
-                  href="/ProfileUser"
+                  href="/"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Your Profile
