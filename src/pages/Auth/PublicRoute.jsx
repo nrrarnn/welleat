@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const PublicRoute = () => {
-  const token = Cookies.get("authToken");
+  const token = useSelector((store) => store.auth.token);
   console.log("🚀 ~ PublicRoute ~ token:", token);
 
   let user;
@@ -15,7 +16,7 @@ const PublicRoute = () => {
 
   const location = useLocation();
   if (!token || token === null) {
-    return token ? null : <Outlet />;
+    return <Outlet />;
   } else if (user) {
     const admin = user.role === "admin";
     const member = user.role === "user";
