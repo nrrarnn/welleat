@@ -29,7 +29,7 @@ const Header = () => {
         </h1>
       </div>
       <div className="flex">
-        <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
+        {/* <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
           <li className="hover:text-sky-500">
             <a href="/">Beranda</a>
           </li>
@@ -42,7 +42,7 @@ const Header = () => {
           <li className="hover:text-sky-500">
             <a href="/favorite">Favorite</a>
           </li>
-        </ul>
+        </ul> */}
       </div>
       <div className="relative flex items-center gap-4">
         <Avatar
@@ -61,7 +61,7 @@ const Header = () => {
             <ul className="py-1">
               <li>
                 <a
-                  href="/user"
+                  href="/ProfileUser"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Your Profile

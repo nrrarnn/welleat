@@ -7,6 +7,9 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import DaftarProduct from "./pages/DaftarProduct/DaftarProduct";
 import HomePageUser from "./pages/userPage/HomePageUser";
+import ProfileUser from "./pages/userPage/ProfileUser";
+
+
 
 function App() {
   return (
@@ -18,7 +21,7 @@ function App() {
         <Route element={<FavoritePage />} path="/favorite" />
         <Route element={<UserCard />} path="/user" />
         <Route element={<HomePageUser />} path="/homepage-user" />
-
+        <Route element={<ProfileUser />} path="/ProfileUser" />
         <Route element={<Register />} path="/register" />
         <Route element={<DaftarProduct />} path="/daftar-product" />
       </Routes>
