@@ -35,8 +35,8 @@ const Login = () => {
       console.log("🚀 ~ handleLogin ~ user:", user);
 
       if (status === "success") {
-        Cookies.set("authToken", token);
-        Cookies.set("dataUser", JSON.stringify(user));
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("dataUser", JSON.stringify(user));
         dispatch({
           type: "LOGIN",
           payload: token,
