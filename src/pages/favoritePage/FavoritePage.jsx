@@ -8,7 +8,7 @@ function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const state = store.getState();
-  const user = JSON.parse(state.users.dataUser);
+  const user = state.users.dataUser;
   const token = state.auth.token;
   const idUser = user.id
 
@@ -22,6 +22,7 @@ function FavoritePage() {
       );
       
       setRecipes(response.data); 
+      console.log(response.data)
     } catch (error) {
       console.error("Error fetching favorite recipes:", error);
      
@@ -51,14 +52,16 @@ function FavoritePage() {
               Resep Favorit
             </h2>
             <div className="flex flex-wrap justify-center items-center">
-              {recipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.recipesId._id}
-                  name={recipe.recipesId.recipeName}
-                  id={recipe.recipesId._id}
-                  image={recipe.recipesId.image}
-                />
-              ))}
+              {recipes
+                .filter((recipe) => recipe.recipesId !== null) // Filter out any entries where recipesId is null
+                .map((recipe) => (
+                  <RecipeCard
+                    key={recipe.recipesId._id}
+                    name={recipe.recipesId.recipeName}
+                    id={recipe.recipesId._id}
+                    image={recipe.recipesId.image}
+                  />
+                ))}
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 let token = localStorage.getItem("authToken");
-token = JSON.parse(token);
+
 const DEFAULT_STATE = {
   token: token,
 };

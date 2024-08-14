@@ -8,7 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../store/store";
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
 
   const state = store.getState();
   const user = state.users.dataUser;
-  const token = localStorage.getItem("authToken");
+  const token = useSelector((state) => state.auth.token)
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");

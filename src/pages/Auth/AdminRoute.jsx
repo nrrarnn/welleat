@@ -1,8 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const AdminRoute = () => {
-  const user = JSON.parse(Cookies.get("dataUser"));
+  const user = JSON.parse(localStorage.getItem("dataUser"));
   return user.role == "admin" ? <Outlet /> : <Navigate to="/forbidden" />;
 };
 export default AdminRoute;
