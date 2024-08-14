@@ -41,8 +41,14 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 		try {
 			const formData = new FormData();
 			formData.append("recipeName", data.recipeName);
-			formData.append("ingredient", data.ingredient.split("\n").join(","));
-			formData.append("step", data.step.split("\n").join(","));
+			data.ingredient
+				.split("\n")
+				.filter(Boolean)
+				.forEach((item) => formData.append("ingredient[]", item));
+			data.step
+				.split("\n")
+				.filter(Boolean)
+				.forEach((item) => formData.append("step[]", item));
 
 			if (imageFile && imageFile[0]) {
 				formData.append("image", imageFile[0]);
