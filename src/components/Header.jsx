@@ -17,7 +17,7 @@ const Header = () => {
 
   const state = store.getState();
   const user = state.users.dataUser;
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -43,20 +43,14 @@ const Header = () => {
   };
 
   const showProfile = () => {
-    Swal.fire({
-      title: "Profil Pengguna",
-      html: `
-        <div style="text-align: left;">
-          <p><strong>Username:</strong> ${user.username}</p>
-          <p><strong>Email:</strong> ${user.email}</p>
-        </div>
-      `,
-      icon: "info",
-      confirmButtonText: "Tutup",
-      confirmButtonColor: "rgb(3 150 199)",
-    });
+    const admin = user.role === "admin";
+
+    if (admin) {
+      navigate("/dashboard-admin");
+    } else {
+      navigate("/homepage-user");
+    }
   };
-  
 
   return (
     <header className="sticky font-poppins top-0 flex h-20 w-full bg-white shadow-md px-12 justify-between items-center z-50">

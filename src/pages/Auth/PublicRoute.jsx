@@ -1,22 +1,21 @@
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import store from "../../store/store";
 
 const PublicRoute = () => {
-  const navigate = useNavigate();
   const state = store.getState();
-  let token = state.auth.token;
-  let user = state.users.dataUser;
-  const admin = user.role === "admin";
-  const member = user.role === "user";
+  const token = state.auth.token;
+  console.log("🚀 ~ PublicRoute ~ token:", token);
+  const user = state.users.dataUser;
+  console.log("🚀 ~ PublicRoute ~ user:", user);
 
-  if (!token || token === null) {
-    return <Outlet />;
-  } else {
-    if (admin) {
-      navigate("/dashboard-admin");
-    } else if (member) {
-      Navigate("/homepage-user");
+  if (token) {
+    if (user.role === "admin") {
+      return <Navigate to="/dashboard-admin" />;
+    } else if (user.role === "user") {
+      return <Navigate to="/homepage-user" />;
     }
+  } else {
+    return <Outlet />;
   }
 };
 

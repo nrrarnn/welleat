@@ -7,13 +7,13 @@ export async function getFavByUserId(id) {
   return responseFavorit.data;
 }
 
-export async function createFavorite(newFavorite) {
+export async function createFavorite(recipesId, userId) {
   try {
     const responseFavorite = await baseApi.post(
       `/addFavorite`,
       {
-        recipesId: newFavorite.recipesId,
-        userId: newFavorite.userId,
+        recipesId: recipesId,
+        userId: userId,
       },
       {
         signal: new AbortController().signal,
@@ -27,9 +27,13 @@ export async function createFavorite(newFavorite) {
   }
 }
 
-export async function deleteFavorite(id) {
-  const response = await baseApi.delete(`/removeFavorite/${id}`, {
-    request: { signal: new AbortController().signal },
+export async function deleteFavorite(recipesId, userId) {
+  const response = await baseApi.delete(`/removeFavorite`, {
+    data: {
+      userId: userId,
+      recipesId: recipesId,
+    },
+    signal: new AbortController().signal,
   });
 
   return response.data;
