@@ -1,33 +1,21 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "../../components/RecipeCard";
-import { useNavigate } from "react-router-dom";
-import withAuth from "../../hoc/withAuth";
 import SearchForm from "../../components/SearchForm";
-import { PropTypes } from "prop-types";
+
 import { NoDataDisplay } from "../../components/NoDataDisplay";
 import { Spinner } from "@nextui-org/react";
 import { fetchData } from "../../data/fetchData";
 import { getRecipes } from "../../data/recipe";
 
-const DaftarProduct = ({ token }) => {
+const DaftarProduct = () => {
   const [listRecipes, setListRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("list");
   const [results, setResults] = useState([]);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     fetchData(setListRecipes, setLoading, getRecipes);
   }, []);
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    } else {
-      getRecipes();
-    }
-  }, [token]);
 
   const handleSearch = (query) => {
     setLoading(true);
@@ -95,8 +83,4 @@ const DaftarProduct = ({ token }) => {
   );
 };
 
-export default withAuth(DaftarProduct);
-
-DaftarProduct.propTypes = {
-  token: PropTypes.any.isRequired,
-};
+export default DaftarProduct;

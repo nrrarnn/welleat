@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import withAuth from "../hoc/withAuth";
 import {
   Avatar,
   Button,
@@ -11,14 +10,18 @@ import {
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
+import store from "../store/store";
 
-const Header = ({ dataUser, token }) => {
+const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const state = store.getState();
+  const user = JSON.parse(state.users.dataUser);
+  const token = state.auth.token;
 
   const handleLogout = () => {
     Cookies.remove("authToken");
-    Cookies.remove("dataUser")
+    Cookies.remove("dataUser");
     dispatch({ type: "LOGOUT" });
     dispatch({ type: "KELUAR" });
     navigate("/");
@@ -57,41 +60,38 @@ const Header = ({ dataUser, token }) => {
           </h1>
         </div>
         <div className="flex">
-          {
-            token ? (
-              <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
-                <li className="hover:text-sky-500">
-                  <Link to="/">Beranda</Link>
-                </li>
-                <li className="hover:text-sky-500">
-                  <Link to="/daftar-product">Daftar Product</Link>
-                </li>
-                <li className="hover:text-sky-500">
-                  <Link to="/favorite">Favorite</Link>
-                </li>
-              </ul>
-            ) : (
-              <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
-                  <li className="hover:text-sky-500">
-                    <a href="#home">Beranda</a>
-                  </li>
-                  <li className="hover:text-sky-500">
-                    <a href="#about">Tentang</a>
-                  </li>
-                  <li className="hover:text-sky-500">
-                    <a href="#testimoni">Testimoni</a>
-                  </li>
-                  <li className="hover:text-sky-500">
-                    <a href="#faq">FAQ</a>
-                  </li>
+          {token ? (
+            <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
+              <li className="hover:text-sky-500">
+                <Link to="/">Beranda</Link>
+              </li>
+              <li className="hover:text-sky-500">
+                <Link to="/daftar-product">Daftar Product</Link>
+              </li>
+              <li className="hover:text-sky-500">
+                <Link to="/favorite">Favorite</Link>
+              </li>
             </ul>
-            )
-          }
-          
+          ) : (
+            <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
+              <li className="hover:text-sky-500">
+                <a href="#home">Beranda</a>
+              </li>
+              <li className="hover:text-sky-500">
+                <a href="#about">Tentang</a>
+              </li>
+              <li className="hover:text-sky-500">
+                <a href="#testimoni">Testimoni</a>
+              </li>
+              <li className="hover:text-sky-500">
+                <a href="#faq">FAQ</a>
+              </li>
+            </ul>
+          )}
         </div>
         {token ? (
           <div className="flex gap-3 items-center">
-            <div>{dataUser.username}</div>
+            <div>{user.username}</div>
             <Dropdown>
               <DropdownTrigger>
                 <Avatar />
@@ -119,4 +119,4 @@ const Header = ({ dataUser, token }) => {
   );
 };
 
-export default withAuth(Header);
+export default Header;
