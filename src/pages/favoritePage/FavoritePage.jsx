@@ -37,7 +37,6 @@ function FavoritePage() {
                   <RecipeCard
                     key={index}
                     name={recipe.recipesId.recipeName}
-                    idFavorite={recipe._id}
                     id={recipe.recipesId._id}
                     image={recipe.recipesId.image}
                     setRecipe={setfavRecipe}

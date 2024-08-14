@@ -27,12 +27,14 @@ export async function createFavorite(recipesId, userId) {
   }
 }
 
-export async function deleteFavorite(id) {
-  const response = await baseApi.delete(
-    `/removeFavorite/${id}`,
-
-    { signal: new AbortController().signal }
-  );
+export async function deleteFavorite(recipesId, userId) {
+  const response = await baseApi.delete(`/removeFavorite`, {
+    data: {
+      userId: userId,
+      recipesId: recipesId,
+    },
+    signal: new AbortController().signal,
+  });
 
   return response.data;
 }

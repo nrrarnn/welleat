@@ -11,19 +11,16 @@ import {
   getFavByUserId,
 } from "../data/favorite";
 
-export default function RecipeCard({
-  name,
-  image,
-  id,
-  isRed,
-  idFavorite,
-  setRecipe,
-}) {
+export default function RecipeCard({ name, image, id, isRed, setRecipe }) {
   const [isRead, setIsRead] = useState(isRed);
   const state = store.getState();
   const user = state.users.dataUser;
   // const token = state.auth.token;
   const idUser = user.id;
+
+  useEffect(() => {
+    setIsRead(isRed);
+  }, [isRed]);
 
   const redHeartClick = async () => {
     try {
@@ -49,9 +46,19 @@ export default function RecipeCard({
         });
         setIsRead(true);
       } else {
-        const response = await deleteFavorite(idFavorite);
+        if (id === null) {
+          Swal.fire({
+            title: "Gagal",
+            text: `Resep Tidak ada`,
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "rgb(3 150 199)",
+          });
+        }
+        console.log("🚀 ~ redHeartClick ~ id:", id);
+        console.log("🚀 ~ redHeartClick ~ idUser:", idUser);
+        const response = await deleteFavorite(id, idUser);
         const responseGet = await getFavByUserId(idUser);
-        console.log("🚀 ~ redHeartClick ~ responseGet:", responseGet);
         setRecipe(responseGet);
 
         Swal.fire({
@@ -91,6 +98,7 @@ export default function RecipeCard({
                 onClick={redHeartClick}
                 className="bg-white px-8 ml-4 rounded border border-blue-500 hover:text-red-600 hover:bg-blue-500"
               >
+                {console.log("🚀 ~ RecipeCard ~ isRead:", isRead)}
                 <FaHeart
                   id="heart-fav"
                   className={` text-xl   ${
@@ -110,5 +118,6 @@ RecipeCard.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  setRecipe: PropTypes.func.isRequired,
+  setRecipe: PropTypes.func,
+  isRed: PropTypes.bool,
 };

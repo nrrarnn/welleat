@@ -13,6 +13,8 @@ import Login from "./pages/Auth/Login";
 import DetailRecipe from "./pages/detailRecipePages/DetailRecipe";
 import FavoritePage from "./pages/favoritePage/FavoritePage";
 import HomePage from "./pages/homepage/HomePage";
+import PublicRoute from "./pages/Auth/PublicRoute";
+import UserRoute from "./pages/Auth/UserRoute";
 
 function App() {
   return (
@@ -21,12 +23,17 @@ function App() {
         <Route element={<Layout />} path="/">
           {/* public routes */}
           <Route index element={<HomePage />} />
-          <Route element={<Login />} path="/login" />
-          <Route element={<Register />} path="/register" />
+          {/* Larangan akses yang sudah Login */}
+          <Route element={<PublicRoute />}>
+            <Route element={<Login />} path="/login" />
+            <Route element={<Register />} path="/register" />
+          </Route>
 
           {/* protected routes */}
           <Route element={<ProtectedRoute />}>
-            <Route element={<HomePageUser />} path="/homepage-user" />
+            <Route element={<UserRoute />}>
+              <Route element={<HomePageUser />} path="/homepage-user" />
+            </Route>
             <Route element={<AdminRoute />}>
               <Route element={<DashboardPage />} path="/dashboard-admin" />
             </Route>
