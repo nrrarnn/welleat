@@ -8,7 +8,6 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import store from "../store/store";
 
@@ -20,8 +19,8 @@ const Header = () => {
   const token = state.auth.token;
 
   const handleLogout = () => {
-    Cookies.remove("authToken");
-    Cookies.remove("dataUser");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("dataUser");
     dispatch({ type: "LOGOUT" });
     dispatch({ type: "KELUAR" });
     navigate("/");

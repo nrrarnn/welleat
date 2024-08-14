@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-
 import RecipeCard from "../../components/RecipeCard";
-import { getFavByUserId } from "../../data/favorite";
 import { Spinner } from "@nextui-org/react";
-import { fetchData } from "../../data/fetchData";
-import { useSelector } from "react-redux";
-import Header from "../../components/Header";
 import axios from "axios";
-import withAuth from "../../hoc/withAuth";
+import store from "../../store/store";
 
-function FavoritePage({ token, dataUser }) {
+function FavoritePage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const idUser = dataUser.id;
+  const state = store.getState();
+  const user = JSON.parse(state.users.dataUser);
+  const token = state.auth.token;
+  const idUser = user.id
 
   const getFavoriteRecipe = async () => {
     try {
@@ -69,4 +67,4 @@ function FavoritePage({ token, dataUser }) {
   );
 }
 
-export default withAuth(FavoritePage);
+export default FavoritePage;

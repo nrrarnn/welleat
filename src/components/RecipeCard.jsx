@@ -5,11 +5,14 @@ import { FaHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import store from "../store/store";
 
 export default function RecipeCard({ name, image, id }) {
   const [isRead, setIsRead] = useState(false);
-  const userId = useSelector((state) => state.users.dataUser.id);
-  const token = useSelector((state) => state.auth.token);
+  const state = store.getState();
+  const user = JSON.parse(state.users.dataUser);
+  const token = state.auth.token;
+  const idUser = user.id
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -19,7 +22,7 @@ export default function RecipeCard({ name, image, id }) {
 
       try {
         const response = await axios.get(
-          `https://api-resep-three.vercel.app/api/v1/userFavorites/${userId}`,
+          `https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`,
           config
         );
         
@@ -34,7 +37,7 @@ export default function RecipeCard({ name, image, id }) {
     };
 
     fetchFavorites();
-  }, [userId, id, token]);
+  }, [idUser, id, token]);
   
    const redHeartClick = async () => {
     const config = {
@@ -44,7 +47,7 @@ export default function RecipeCard({ name, image, id }) {
     try {
       if (!isRead) {  
         const response = await axios.post('https://api-resep-three.vercel.app/api/v1/addFavorite', {
-          userId: userId,
+          userId: idUser,
           recipesId: id
         }, config);
         console.log(response.data.message);
@@ -58,7 +61,7 @@ export default function RecipeCard({ name, image, id }) {
       } else { 
         const response = await axios.delete(`https://api-resep-three.vercel.app/api/v1/removeFavorite`,{
           headers: { Authorization: `Bearer ${token}` },
-          data: { userId, recipesId: id } 
+          data: { idUser, recipesId: id } 
         });
         console.log(response.data.message);
         Swal.fire({
