@@ -55,8 +55,6 @@ export default function RecipeCard({ name, image, id, isRed, setRecipe }) {
             confirmButtonColor: "rgb(3 150 199)",
           });
         }
-        console.log("🚀 ~ redHeartClick ~ id:", id);
-        console.log("🚀 ~ redHeartClick ~ idUser:", idUser);
         const response = await deleteFavorite(id, idUser);
         const responseGet = await getFavByUserId(idUser);
         setRecipe(responseGet);
@@ -98,7 +96,6 @@ export default function RecipeCard({ name, image, id, isRed, setRecipe }) {
                 onClick={redHeartClick}
                 className="bg-white px-8 ml-4 rounded border border-blue-500 hover:text-red-600 hover:bg-blue-500"
               >
-                {console.log("🚀 ~ RecipeCard ~ isRead:", isRead)}
                 <FaHeart
                   id="heart-fav"
                   className={` text-xl   ${

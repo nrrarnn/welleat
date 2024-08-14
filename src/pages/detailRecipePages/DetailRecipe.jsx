@@ -3,24 +3,22 @@ import { Link, useParams } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { getRecipe } from "../../data/recipe";
 import { Button, Spinner } from "@nextui-org/react";
-import { fetchingData } from "../../data/fetchData";
+import { fetchData } from "../../data/fetchData";
 import Comment from "../../components/Comment";
 const DetailRecipe = () => {
   const { id } = useParams();
-
+  const [loading, setLoading] = useState(true);
   const [recipe, setRecipe] = useState();
 
   useEffect(() => {
-    fetchingData(setRecipe, () => getRecipe(id));
+    fetchData(setRecipe, setLoading, () => getRecipe(id));
   }, [id]);
 
-  if (!recipe) {
+  if (!recipe || loading) {
     return (
-      <>
-        <div className="flex items-center justify-center h-screen">
-          <Spinner label="Loading ..." size="lg" />
-        </div>
-      </>
+      <div className="flex items-center justify-center h-screen">
+        <Spinner label="Loading ..." size="lg" />
+      </div>
     );
   }
   return (
