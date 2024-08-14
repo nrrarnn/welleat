@@ -6,7 +6,7 @@ import NavbarUser from "./NavbarUser"
 import AboutUs from "../../pages/homepage/AboutUs"
 import WhyWellEat from "../../pages/homepage/WhyWellEat"
 import Testimonials from "../../pages/homepage/Testimonials"
-import ProfileUser from "./ProfileUser"
+// import ProfileUser from "./ProfileUser"
 
 
 

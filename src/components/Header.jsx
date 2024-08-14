@@ -44,21 +44,19 @@ const Header = () => {
 
   const showProfile = () => {
     Swal.fire({
-      title: "Profile Pengguna",
+      title: "Profil Pengguna",
       html: `
         <div style="text-align: left;">
-          <p><strong>Nama Lengkap:</strong> ${user.username}</p>
-          <p><strong>Email:</strong> johndoe@example.com</p>
-          <p><strong>No. Telepon:</strong> (123) 456-7890</p>
-          <p><strong>Alamat:</strong></p>
-          <p>123 Main St</p>
-          <p>Anytown, USA 12345</p>
+          <p><strong>Username:</strong> ${user.username}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
         </div>
       `,
       icon: "info",
       confirmButtonText: "Tutup",
+      confirmButtonColor: "rgb(3 150 199)",
     });
   };
+  
 
   return (
     <header className="sticky font-poppins top-0 flex h-20 w-full bg-white shadow-md px-12 justify-between items-center z-50">
