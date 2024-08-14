@@ -13,7 +13,7 @@ function LandingPageUser() {
             </p>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
             <Link
               className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-green-500/10 hover:shadow-green-500/10"
               to="/daftar-product"
@@ -42,7 +42,7 @@ function LandingPageUser() {
               <span className="mb-5 text-sm text-gray-500">View More</span>
             </Link>
 
-            <a
+            {/* <a
               className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-orange-500/10 hover:shadow-orange-500/10"
               href="/detail-recipe/:id"
             >
@@ -55,7 +55,7 @@ function LandingPageUser() {
                 Architecto, blanditiis.
               </p>
               <span className="mb-5 text-sm text-gray-500">View More</span>
-            </a>
+            </a> */}
           </div>
 
           <div className="mt-12 text-center">
