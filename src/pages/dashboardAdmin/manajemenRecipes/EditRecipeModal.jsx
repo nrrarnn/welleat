@@ -52,11 +52,14 @@ const EditRecipeModal = ({ visible, onClose, recipe, onRecipeUpdated }) => {
 		try {
 			const formData = new FormData();
 			formData.append("recipeName", data.recipeName);
-			formData.append(
-				"ingredient",
-				data.ingredient.split("\n").filter(Boolean).join(",")
-			);
-			formData.append("step", data.step.split("\n").filter(Boolean).join(","));
+			data.ingredient
+				.split("\n")
+				.filter(Boolean)
+				.forEach((item) => formData.append("ingredient[]", item));
+			data.step
+				.split("\n")
+				.filter(Boolean)
+				.forEach((item) => formData.append("step[]", item));
 
 			// Periksa jika file gambar ada dan tambahkan ke FormData
 			if (imageFile && imageFile[0]) {
