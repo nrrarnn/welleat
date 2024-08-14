@@ -2,7 +2,7 @@ import axios from "axios";
 import { PropTypes } from "prop-types";
 import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import store from "../store/store";
@@ -10,9 +10,9 @@ import store from "../store/store";
 export default function RecipeCard({ name, image, id }) {
   const [isRead, setIsRead] = useState(false);
   const state = store.getState();
-  const user = JSON.parse(state.users.dataUser);
+  const user = state.users.dataUser;
   const token = state.auth.token;
-  const idUser = user.id
+  const idUser = user.id;
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -25,12 +25,11 @@ export default function RecipeCard({ name, image, id }) {
           `https://api-resep-three.vercel.app/api/v1/userFavorites/${idUser}`,
           config
         );
-        
+
         const favorites = response.data;
-        
-        const isFavorite = favorites.some(fav => fav.recipesId._id === id);
+
+        const isFavorite = favorites.some((fav) => fav.recipesId._id === id);
         setIsRead(isFavorite);
-        
       } catch (error) {
         console.error("Error fetching favorites:", error);
       }
@@ -38,39 +37,48 @@ export default function RecipeCard({ name, image, id }) {
 
     fetchFavorites();
   }, [idUser, id, token]);
-  
-   const redHeartClick = async () => {
+
+  const redHeartClick = async () => {
     const config = {
-          headers: { Authorization: `Bearer ${token}` }
-        };
+      headers: { Authorization: `Bearer ${token}` },
+    };
 
     try {
-      if (!isRead) {  
-        const response = await axios.post('https://api-resep-three.vercel.app/api/v1/addFavorite', {
-          userId: idUser,
-          recipesId: id
-        }, config);
+      if (!isRead) {
+        const response = await axios.post(
+          "https://api-resep-three.vercel.app/api/v1/addFavorite",
+          {
+            userId: idUser,
+            recipesId: id,
+          },
+          config
+        );
         console.log(response.data.message);
         Swal.fire({
           title: "Success",
           text: `${response.data.message}`,
           icon: "success",
           confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)"})
-          setIsRead(true)
-      } else { 
-        const response = await axios.delete(`https://api-resep-three.vercel.app/api/v1/removeFavorite`,{
-          headers: { Authorization: `Bearer ${token}` },
-          data: { idUser, recipesId: id } 
+          confirmButtonColor: "rgb(3 150 199)",
         });
+        setIsRead(true);
+      } else {
+        const response = await axios.delete(
+          `https://api-resep-three.vercel.app/api/v1/removeFavorite`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            data: { idUser, recipesId: id },
+          }
+        );
         console.log(response.data.message);
         Swal.fire({
           title: "Delete Success",
           text: `${response.data.message}`,
           icon: "success",
           confirmButtonText: "OK",
-          confirmButtonColor: "rgb(3 150 199)"})
-          setIsRead(false)
+          confirmButtonColor: "rgb(3 150 199)",
+        });
+        setIsRead(false);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
