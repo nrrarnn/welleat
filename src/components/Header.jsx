@@ -12,17 +12,20 @@ import { useDispatch } from "react-redux";
 import store from "../store/store";
 
 const Header = () => {
+  // const [login, setLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const state = store.getState();
-  const user = JSON.parse(state.users.dataUser);
-  const token = state.auth.token;
+  const user = state.users.dataUser;
+  const token = localStorage.getItem("authToken");
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("dataUser");
     dispatch({ type: "LOGOUT" });
     dispatch({ type: "KELUAR" });
+    // setLogin(false);
     navigate("/");
   };
 
@@ -90,6 +93,7 @@ const Header = () => {
         </div>
         {token ? (
           <div className="flex gap-3 items-center">
+            {console.log("🚀 ~ Header ~ token:", token)}
             <div>{user.username}</div>
             <Dropdown>
               <DropdownTrigger>

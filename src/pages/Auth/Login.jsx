@@ -34,11 +34,12 @@ const Login = () => {
       console.log("🚀 ~ handleLogin ~ user:", user);
 
       if (status === "success") {
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("authToken", JSON.stringify(token));
         localStorage.setItem("dataUser", JSON.stringify(user));
+
         dispatch({
           type: "LOGIN",
-          payload: token,
+          payload: JSON.stringify(token),
         });
         dispatch({
           type: "MASUK",

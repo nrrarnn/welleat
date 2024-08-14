@@ -13,7 +13,6 @@ import Error404 from "./pages/errorPage/Error404";
 import LayoutUser from "./layout/LayoutUser";
 import AdminRoute from "./pages/Auth/adminRoute";
 import Error403 from "./pages/errorPage/Error403";
-import PublicRoute from "./pages/Auth/PublicRoute";
 
 function App() {
   return (
@@ -21,11 +20,9 @@ function App() {
       <Routes>
         <Route element={<Layout />} path="/">
           {/* public routes */}
-          <Route element={<PublicRoute />}>
-            <Route index element={<HomePage />} />
-            <Route element={<Login />} path="/login" />
-            <Route element={<Register />} path="/register" />
-          </Route>
+          <Route index element={<HomePage />} />
+          <Route element={<Login />} path="/login" />
+          <Route element={<Register />} path="/register" />
 
           {/* protected routes */}
           <Route element={<ProtectedRoute />}>

@@ -1,4 +1,4 @@
-import { fetchingData, postingData } from "../../src/data/fetchData";
+import { fetchingData } from "../../src/data/fetchData";
 import { getComment, postComment } from "../../src/data/comment";
 import { useEffect, useState } from "react";
 import { Button, Input, Spinner } from "@nextui-org/react";
@@ -16,7 +16,7 @@ const Comment = ({ id }) => {
   }, [id]);
 
   const state = store.getState();
-  const user = JSON.parse(state.users.dataUser);
+  const user = state.users.dataUser;
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
@@ -34,10 +34,9 @@ const Comment = ({ id }) => {
         userId: user.id,
       };
 
-      postingData(() => postComment(commentar));
-
-      fetchingData(setComments, () => getComment(id));
-
+      await postComment(commentar);
+      const responseComent = await getComment(id);
+      setComments(responseComent.data);
       setLoading(false);
       setNewComment("");
     } catch (error) {
