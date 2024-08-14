@@ -17,7 +17,7 @@ const Header = () => {
 
   const state = store.getState();
   const user = state.users.dataUser;
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -43,21 +43,13 @@ const Header = () => {
   };
 
   const showProfile = () => {
-    Swal.fire({
-      title: "Profile Pengguna",
-      html: `
-        <div style="text-align: left;">
-          <p><strong>Nama Lengkap:</strong> ${user.username}</p>
-          <p><strong>Email:</strong> johndoe@example.com</p>
-          <p><strong>No. Telepon:</strong> (123) 456-7890</p>
-          <p><strong>Alamat:</strong></p>
-          <p>123 Main St</p>
-          <p>Anytown, USA 12345</p>
-        </div>
-      `,
-      icon: "info",
-      confirmButtonText: "Tutup",
-    });
+    const admin = user.role === "admin";
+
+    if (admin) {
+      navigate("/dashboard-admin");
+    } else {
+      navigate("/homepage-user");
+    }
   };
 
   return (
