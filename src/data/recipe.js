@@ -16,17 +16,15 @@ export async function getRecipe(id) {
   return response.data;
 }
 
-export async function createRecipe(newRecipe) {
+export async function createRecipe(formData) {
   try {
     const responseRecipe = await baseApi.post(
       `/resep`,
+      formData,
       {
-        recipeName: newRecipe.recipeName,
-        ingredient: newRecipe.ingredient,
-        step: newRecipe.step,
-        image: newRecipe.image,
-      },
-      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         signal: new AbortController().signal,
       }
     );
@@ -38,27 +36,27 @@ export async function createRecipe(newRecipe) {
   }
 }
 
-export async function editRecipe(newRecipe, id) {
+
+export async function editRecipe(id, formData) {
   try {
     const responseRecipe = await baseApi.put(
       `/resep/${id}`,
+      formData,
       {
-        recipeName: newRecipe.recipeName,
-        ingredient: newRecipe.ingredient,
-        step: newRecipe.step,
-        image: newRecipe.image,
-      },
-      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         signal: new AbortController().signal,
       }
     );
 
     return responseRecipe.data;
   } catch (error) {
-    console.error("Error posting Recipe:", error);
+    console.error("Error updating Recipe:", error);
     throw error;
   }
 }
+
 
 export async function deleteRecipe(id) {
   const response = await baseApi.delete(`/resep/${id}`, {

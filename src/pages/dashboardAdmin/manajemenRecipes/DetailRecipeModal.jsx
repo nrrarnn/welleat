@@ -9,6 +9,8 @@ import {
 } from "@nextui-org/react";
 
 const DetailRecipeModal = ({ visible, onClose, recipe }) => {
+	if (!recipe) return null;
+
 	return (
 		<Modal
 			isOpen={visible}
