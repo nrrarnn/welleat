@@ -1,7 +1,16 @@
 import { fetchingData } from "../../src/data/fetchData";
-import { getComment, postComment } from "../../src/data/comment";
+import { deleteComment, getComment, postComment } from "../../src/data/comment";
 import { useEffect, useState } from "react";
-import { Button, Input, Spinner } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+  Spinner,
+} from "@nextui-org/react";
 import store from "../store/store";
 import { PropTypes } from "prop-types";
 
@@ -14,6 +23,13 @@ const Comment = ({ id }) => {
   useEffect(() => {
     fetchingData(setComments, () => getComment(id));
   }, [id]);
+
+  const deleteCommentHandler = async (idComm) => {
+    await deleteComment(idComm);
+    const responseComent = await getComment(id);
+    setComments(responseComent.data);
+    console.log("🚀 ~ deleteCommentHandler ~ responseComent:", responseComent);
+  };
 
   const state = store.getState();
   const user = state.users.dataUser;
@@ -97,11 +113,26 @@ const Comment = ({ id }) => {
             {comments.length > 0 ? (
               comments.slice(0, showComments).map((comment, index) => (
                 <div key={index} className="flex items-start space-x-4">
-                  <img
-                    src="https://via.placeholder.com/50"
-                    alt="User Avatar"
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
-                  />
+                  <Dropdown placement="bottom-end">
+                    <DropdownTrigger>
+                      <Avatar
+                        isBordered
+                        as="button"
+                        className="transition-transform"
+                        src="https://via.placeholder.com/50"
+                      />
+                    </DropdownTrigger>
+                    <DropdownMenu variant="flat">
+                      <DropdownItem
+                        onClick={() => deleteCommentHandler(comment._id)}
+                        key="delete"
+                        className="h-14 gap-2"
+                      >
+                        {console.log("🚀 ~ Comment ~ comment:", comment)}
+                        Delete
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                   <div className="text-start">
                     <p className="font-semibold text-gray-700">
                       {user.username}
