@@ -1,20 +1,19 @@
-
 // Mengambil data pengguna dari cookie
-const userData = localStorage.getItem("dataUser");
-
+let userData = localStorage.getItem("dataUser");
+userData = JSON.parse(userData);
 const DEFAULT_STATE = {
-   dataUser: userData // Menggunakan JSON.parse jika data disimpan sebagai string JSONdataUser: userDataFromCookie // Menggunakan JSON.parse jika data disimpan sebagai string JSON
+  dataUser: userData, // Menggunakan JSON.parse jika data disimpan sebagai string JSONdataUser: userDataFromCookie // Menggunakan JSON.parse jika data disimpan sebagai string JSON
 };
 
 // Reducer untuk pengguna
 export const usersReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case 'MASUK':
+    case "MASUK":
       return {
         ...state,
         dataUser: action.payload,
       };
-    case 'KELUAR':
+    case "KELUAR":
       return {
         ...state,
         dataUser: null,

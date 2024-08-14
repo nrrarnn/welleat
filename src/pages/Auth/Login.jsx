@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -35,11 +34,12 @@ const Login = () => {
       console.log("🚀 ~ handleLogin ~ user:", user);
 
       if (status === "success") {
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("authToken", JSON.stringify(token));
         localStorage.setItem("dataUser", JSON.stringify(user));
+
         dispatch({
           type: "LOGIN",
-          payload: token,
+          payload: JSON.stringify(token),
         });
         dispatch({
           type: "MASUK",

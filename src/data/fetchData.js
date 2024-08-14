@@ -19,7 +19,8 @@ export const postData = (setLoad, sendData) => {
       await sendData();
     };
     postResult();
-    setLoad(false);
+    setLoad(postResult.data);
+    console.log("🚀 ~ postData ~ setLoad:", setLoad);
   } catch (error) {
     console.log(error);
     setLoad(false);
@@ -29,8 +30,10 @@ export const postData = (setLoad, sendData) => {
 export const postingData = (sendData) => {
   try {
     const postResult = async () => {
-      await sendData();
+      const response = await sendData();
+      console.log("🚀 ~ postResult ~ response:", response);
     };
+
     postResult();
   } catch (error) {
     console.log(error);
