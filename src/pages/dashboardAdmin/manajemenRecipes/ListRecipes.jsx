@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 import { BiDetail } from "react-icons/bi";
 
-const ListRecipes = ({ id, name, bahan, img, onEdit, onDelete, onDetail }) => {
+const ListRecipes = ({ id, name, img, onEdit, onDelete, onDetail }) => {
 	return (
 		<div
 			key={id}
@@ -19,7 +19,6 @@ const ListRecipes = ({ id, name, bahan, img, onEdit, onDelete, onDetail }) => {
 					/>
 					<div className="px-4 text-start">
 						<p className="text-sm font-semibold text-slate-800">{name}</p>
-						{/* Display bahan if needed */}
 					</div>
 				</div>
 				<div className="flex gap-3">
