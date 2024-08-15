@@ -78,7 +78,7 @@ const AddRecipeModal = ({ visible, onClose, onRecipeCreated }) => {
 	};
 
 	return (
-		<Modal isOpen={visible} onOpenChange={onClose}>
+		<Modal isOpen={visible} onOpenChange={onClose} className="font-poppins">
 			<ModalContent>
 				<>
 					<ModalHeader className="flex flex-col gap-1">Add Recipe</ModalHeader>
