@@ -27,13 +27,6 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
     dispatch({ type: "KELUAR" });
     navigate("/");
   };
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("dataUser");
-    dispatch({ type: "LOGOUT" });
-    dispatch({ type: "KELUAR" });
-    navigate("/");
-  };
 
   const onLogout = () => {
     Swal.fire({
