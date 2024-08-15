@@ -3,7 +3,7 @@ import store from "../../store/store";
 
 const PublicRoute = () => {
   const state = store.getState();
-  const token = state.auth.token;
+  const token = localStorage.getItem("authToken");
   console.log("🚀 ~ PublicRoute ~ token:", token);
   const user = state.users.dataUser;
   console.log("🚀 ~ PublicRoute ~ user:", user);

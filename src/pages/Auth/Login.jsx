@@ -27,8 +27,8 @@ const Login = () => {
           password: loginState.password,
         }
       );
-      const token = response.data.token;
       const role = response.data.user.role;
+      const token = response.data.token;
       const status = response.data.status;
       const user = response.data.user;
       console.log("🚀 ~ handleLogin ~ user:", user);

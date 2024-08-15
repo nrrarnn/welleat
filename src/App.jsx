@@ -22,9 +22,9 @@ function App() {
       <Routes>
         <Route element={<Layout />} path="/">
           {/* public routes */}
-          <Route index element={<HomePage />} />
           {/* Larangan akses yang sudah Login */}
           <Route element={<PublicRoute />}>
+            <Route index element={<HomePage />} />
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
           </Route>

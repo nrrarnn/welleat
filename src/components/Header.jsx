@@ -8,7 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import store from "../store/store";
 
 const Header = () => {
@@ -17,14 +17,16 @@ const Header = () => {
 
   const state = store.getState();
   const user = state.users.dataUser;
-  const token = useSelector((state) => state.auth.token);
+  const token = localStorage.getItem("authToken");
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("dataUser");
+  const handleLogout = async () => {
+    // localStorage.removeItem("authToken");
+    // localStorage.removeItem("dataUser");
+    console.log("lewat");
+
+    localStorage.clear();
     dispatch({ type: "LOGOUT" });
     dispatch({ type: "KELUAR" });
-    navigate("/");
   };
 
   const onLogout = () => {
@@ -37,7 +39,30 @@ const Header = () => {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        handleLogout();
+        // Optionally add a loading indicator
+        Swal.showLoading();
+
+        // Call the logout handler
+        handleLogout()
+          .then(() => {
+            // Show a success message or redirect after logout
+            Swal.fire({
+              title: "Logged out",
+              text: "You have been logged out successfully.",
+              icon: "success",
+            }).then(() => {
+              // Redirect to login or homepage if needed
+              navigate("/login");
+            });
+          })
+          .catch((error) => {
+            // Handle any errors that occur during logout
+            Swal.fire({
+              title: "Error",
+              text: `Something went wrong during logout. ${error}`,
+              icon: "error",
+            });
+          });
       }
     });
   };

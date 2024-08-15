@@ -1,9 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import store from "../../store/store";
 
 const UserRoute = () => {
-  const state = store.getState();
-  const user = state.users.dataUser;
+  const user = JSON.parse(localStorage.getItem("dataUser"));
 
   return user.role == "user" ? <Outlet /> : <Navigate to="/forbidden" />;
 };
