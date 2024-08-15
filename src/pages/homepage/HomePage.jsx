@@ -1,5 +1,4 @@
 import AboutUs from "./AboutUs";
-import CardHome from "./CardHome";
 import FAQSection from "./FaqSection";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -14,7 +13,7 @@ const HomePage = () => {
       <Header />
       <section id="home">
         <HeroSection />
-        <CardHome />
+        {/* <CardHome /> */}
       </section>
       <section id="about">
         <AboutUs />

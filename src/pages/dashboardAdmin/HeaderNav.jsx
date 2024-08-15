@@ -9,7 +9,6 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -21,6 +20,13 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
   const state = store.getState();
   const user = state.users.dataUser;
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("dataUser");
+    dispatch({ type: "LOGOUT" });
+    dispatch({ type: "KELUAR" });
+    navigate("/");
+  };
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("dataUser");
@@ -53,7 +59,7 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
   };
 
   return (
-    <Navbar className="shadow-md py-2">
+    <Navbar className="shadow-md py-2 font-poppins">
       <NavbarContent>
         <NavbarMenuToggle onClick={handleExpandedSidebar} />
       </NavbarContent>
@@ -62,7 +68,7 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
           <DropdownTrigger>
             <Avatar isBordered alt={user.username} className="cursor-pointer" />
           </DropdownTrigger>
-          <DropdownMenu aria-label="User Actions">
+          <DropdownMenu aria-label="User Actions" className="font-poppins">
             <DropdownItem key="username">{user.username}</DropdownItem>
             <DropdownItem
               key="logout"

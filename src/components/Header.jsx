@@ -88,11 +88,11 @@ const Header = () => {
       <div className="flex">
         {token ? (
           <ul className="lg:flex hidden gap-5 font-medium text-slate-700 cursor-pointer">
-            <li className="hover:text-sky-500">
+            {/* <li className="hover:text-sky-500">
               <Link to="/">Beranda</Link>
-            </li>
+            </li> */}
             <li className="hover:text-sky-500">
-              <Link to="/daftar-product">Daftar Product</Link>
+              <Link to="/daftar-product">Daftar Resep</Link>
             </li>
             <li className="hover:text-sky-500">
               <Link to="/favorite">Favorite</Link>

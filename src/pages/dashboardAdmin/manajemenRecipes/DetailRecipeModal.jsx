@@ -17,6 +17,7 @@ const DetailRecipeModal = ({ visible, onClose, recipe }) => {
 			onOpenChange={onClose}
 			size="4xl"
 			scrollBehavior="inside"
+			className="font-poppins"
 		>
 			<ModalContent>
 				<>

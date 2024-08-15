@@ -10,7 +10,7 @@ const SideBar = ({ setActivePage, isSidebarExpanded, activePage }) => {
 					isSidebarExpanded ? "w-60" : "w-16"
 				}`}
 			>
-				<div className="space-y-6 md:space-y-10 mt-10">
+				<div className="space-y-6 md:space-y-10 mt-10 font-poppins">
 					{isSidebarExpanded ? (
 						<div className="flex justify-center items-center">
 							<img src="./img/logo.png" alt="" className="w-[40px] " />

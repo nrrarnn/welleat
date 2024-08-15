@@ -1,30 +1,44 @@
-import Register from "./pages/Auth/Register";
-import DaftarProduct from "./pages/DaftarProduct/DaftarProduct";
-import HomePageUser from "./pages/userPage/HomePageUser";
-import DashboardPage from "./pages/dashboardAdmin/DashboardPage";
-import ProtectedRoute from "./pages/Auth/ProtectedRoute";
-import Layout from "./layout/Layout";
-import Error404 from "./pages/errorPage/Error404";
-import LayoutUser from "./layout/LayoutUser";
-import AdminRoute from "./pages/Auth/adminRoute";
-import Error403 from "./pages/errorPage/Error403";
+import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/Auth/Login";
-import DetailRecipe from "./pages/detailRecipePages/DetailRecipe";
-import FavoritePage from "./pages/favoritePage/FavoritePage";
-import HomePage from "./pages/homepage/HomePage";
-import PublicRoute from "./pages/Auth/PublicRoute";
-import UserRoute from "./pages/Auth/UserRoute";
+
+import { Spinner } from "@nextui-org/react";
+
+const Register = lazy(() => import("./pages/Auth/Register"));
+const DaftarProduct = lazy(() => import("./pages/DaftarProduct/DaftarProduct"));
+const HomePageUser = lazy(() => import("./pages/userPage/HomePageUser"));
+const DashboardPage = lazy(() =>
+  import("./pages/dashboardAdmin/DashboardPage")
+);
+const ProtectedRoute = lazy(() => import("./pages/Auth/ProtectedRoute"));
+const Layout = lazy(() => import("./layout/Layout"));
+const Error404 = lazy(() => import("./pages/errorPage/Error404"));
+const LayoutUser = lazy(() => import("./layout/LayoutUser"));
+const AdminRoute = lazy(() => import("./pages/Auth/AdminRoute"));
+const Error403 = lazy(() => import("./pages/errorPage/Error403"));
+const Login = lazy(() => import("./pages/Auth/Login"));
+const DetailRecipe = lazy(() =>
+  import("./pages/detailRecipePages/DetailRecipe")
+);
+const FavoritePage = lazy(() => import("./pages/favoritePage/FavoritePage"));
+const HomePage = lazy(() => import("./pages/homepage/HomePage"));
+const PublicRoute = lazy(() => import("./pages/Auth/PublicRoute"));
+const UserRoute = lazy(() => import("./pages/Auth/UserRoute"));
 
 function App() {
   return (
-    <>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen">
+          <Spinner label="Loading ..." size="lg" />
+        </div>
+      }
+    >
       <Routes>
         <Route element={<Layout />} path="/">
           {/* public routes */}
+          <Route index element={<HomePage />} />
           {/* Larangan akses yang sudah Login */}
           <Route element={<PublicRoute />}>
-            <Route index element={<HomePage />} />
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
           </Route>
@@ -51,7 +65,8 @@ function App() {
         <Route element={<Register />} path="/register" />
         <Route element={<DaftarProduct />} path="/daftar-product" />
       </Routes>
-    </>
+    </Suspense>
   );
 }
+
 export default App;
