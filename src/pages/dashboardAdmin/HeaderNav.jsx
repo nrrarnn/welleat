@@ -64,6 +64,14 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
           <DropdownMenu aria-label="User Actions" className="font-poppins">
             <DropdownItem key="username">{user.username}</DropdownItem>
             <DropdownItem
+              key="username"
+              onClick={() => {
+                navigate("/daftar-product");
+              }}
+            >
+              List Recipe
+            </DropdownItem>
+            <DropdownItem
               key="logout"
               className="text-danger"
               color="danger"

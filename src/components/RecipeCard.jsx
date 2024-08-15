@@ -1,5 +1,5 @@
 import { PropTypes } from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
@@ -15,11 +15,16 @@ export default function RecipeCard({ name, image, id, isRed, setRecipe }) {
   const [isRead, setIsRead] = useState(isRed);
   const state = store.getState();
   const user = state.users.dataUser;
-  // const token = state.auth.token;
   const idUser = user.id;
+  const heartIconRef = useRef(null);
 
   useEffect(() => {
     setIsRead(isRed);
+    if (heartIconRef.current) {
+      heartIconRef.current.className = `text-xl ${
+        isRed ? "text-red-500" : "text-gray-500"
+      }`;
+    }
   }, [isRed]);
 
   const redHeartClick = async () => {
@@ -98,6 +103,7 @@ export default function RecipeCard({ name, image, id, isRed, setRecipe }) {
               >
                 <FaHeart
                   id="heart-fav"
+                  ref={heartIconRef}
                   className={` text-xl   ${
                     isRead ? "text-red-500" : "text-gray"
                   }`}
