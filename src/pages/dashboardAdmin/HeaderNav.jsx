@@ -86,6 +86,7 @@ const HeaderNav = ({ handleExpandedSidebar }) => {
   );
 };
 
+
 export default HeaderNav;
 
 HeaderNav.propTypes = {
